@@ -1,4 +1,4 @@
-package com.example.backetl_ist_app.domain;
+package com.example.backetList_app.Domain;
 
 public class User {
     private Integer id;

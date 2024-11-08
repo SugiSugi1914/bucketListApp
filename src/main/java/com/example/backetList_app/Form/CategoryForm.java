@@ -2,14 +2,14 @@ package com.example.backetList_app.Form;
 
 public class CategoryForm {
     
-    private Integer categoryId;
+    private Integer id;
     private String category;
-
-    public Integer getCategoryId() {
-        return categoryId;
+    
+    public Integer getId() {
+        return id;
     }
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setId(Integer id) {
+        this.id = id;
     }
     public String getCategory() {
         return category;
@@ -17,9 +17,9 @@ public class CategoryForm {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
     @Override
     public String toString() {
-        return "CategoryForm [categoryId=" + categoryId + ", category=" + category + "]";
+        return "CategoryForm [id=" + id + ", category=" + category + "]";
     }
 }

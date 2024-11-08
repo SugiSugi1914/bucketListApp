@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BucketForm {
     
+    private Integer id;
     private String title;
     private MultipartFile image;
     private Integer categoryId;
@@ -17,7 +18,13 @@ public class BucketForm {
     private String memo;
     private LocalDate creationDate;
     private Boolean achevement;
-
+    
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -87,8 +94,9 @@ public class BucketForm {
 
     @Override
     public String toString() {
-        return "BucketForm [title=" + title + ", image=" + image + ", categoryId=" + categoryId + ", userId=" + userId
-                + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priorityId=" + priorityId + ", url=" + url
-                + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement + "]";
-    }
+        return "BucketForm [id=" + id + ", title=" + title + ", image=" + image + ", categoryId=" + categoryId
+                + ", userId=" + userId + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priorityId=" + priorityId
+                + ", url=" + url + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement
+                + "]";
+    } 
 }

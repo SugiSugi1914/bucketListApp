@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UserForm {
     
+    private Integer id;
     private String name;
     private MultipartFile icon;
     private Integer age;
@@ -12,6 +13,12 @@ public class UserForm {
     private String gender;
     private String role;
     
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -54,10 +61,10 @@ public class UserForm {
     public void setRole(String role) {
         this.role = role;
     }
-
+    
     @Override
     public String toString() {
-        return "UserForm [name=" + name + ", icon=" + icon + ", age=" + age + ", email=" + email + ", password="
-                + password + ", gender=" + gender + ", role=" + role + "]";
+        return "UserForm [id=" + id + ", name=" + name + ", icon=" + icon + ", age=" + age + ", email=" + email
+                + ", password=" + password + ", gender=" + gender + ", role=" + role + "]";
     }
 }

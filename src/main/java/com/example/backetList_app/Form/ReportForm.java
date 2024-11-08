@@ -2,16 +2,16 @@ package com.example.backetList_app.Form;
 
 public class ReportForm {
     
-    private Integer reportId;
+    private Integer id;
     private String reportCategory;
     private Integer reportBucketId;
     private Integer reportUserId;
     
     public Integer getReportId() {
-        return reportId;
+        return id;
     }
     public void setReportId(Integer reportId) {
-        this.reportId = reportId;
+        this.id = reportId;
     }
     public String getReportCategory() {
         return reportCategory;
@@ -34,7 +34,7 @@ public class ReportForm {
     
     @Override
     public String toString() {
-        return "ReportForm [reportId=" + reportId + ", reportCategory=" + reportCategory + ", reportBucketId="
+        return "ReportForm [id=" + id + ", reportCategory=" + reportCategory + ", reportBucketId="
                 + reportBucketId + ", reportUserId=" + reportUserId + "]";
     }
 }

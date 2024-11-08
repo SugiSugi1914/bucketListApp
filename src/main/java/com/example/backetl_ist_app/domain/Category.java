@@ -2,15 +2,15 @@ package com.example.backetl_ist_app.domain;
 
 public class Category {
 
-    private Integer categoryId;
+    private Integer id;
     private String category;
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -23,15 +23,15 @@ public class Category {
 
     @Override
     public String toString() {
-        return "CategoryDoamin [categoryId=" + categoryId + ", category=" + category + "]";
+        return "Category [id=" + id + ", category=" + category + "]";
     }
 
     public Category() {
 
     }
 
-    public Category(Integer categoryId, String category) {
-        this.categoryId = categoryId;
+    public Category(Integer id, String category) {
+        this.id = id;
         this.category = category;
     }
 

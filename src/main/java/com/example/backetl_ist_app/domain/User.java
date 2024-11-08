@@ -1,7 +1,7 @@
 package com.example.backetl_ist_app.domain;
 
 public class User {
-    private Integer userId;
+    private Integer id;
     private String name;
     private Integer age;
     private String email;
@@ -10,12 +10,12 @@ public class User {
     private String role;
     private String icon;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -76,17 +76,17 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", name=" + name + ", age=" + age + ", email=" + email + ", password="
-                + password + ", gender=" + gender + ", role=" + role + ", icon=" + icon + "]";
+        return "User [id=" + id + ", name=" + name + ", age=" + age + ", email=" + email + ", password=" + password
+                + ", gender=" + gender + ", role=" + role + ", icon=" + icon + "]";
     }
 
     public User() {
 
     }
 
-    public User(Integer userId, String name, Integer age, String email, String password, String gender, String role,
+    public User(Integer id, String name, Integer age, String email, String password, String gender, String role,
             String icon) {
-        this.userId = userId;
+        this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;

@@ -3,7 +3,7 @@ package com.example.backetl_ist_app.domain;
 import java.time.LocalDate;
 
 public class Bucket {
-    private Integer bucketId;
+    private Integer id;
     private String title;
     private String image;
     private Category category;
@@ -16,12 +16,12 @@ public class Bucket {
     private LocalDate creationDate;
     private Boolean achevement;
 
-    public Integer getBucketId() {
-        return bucketId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBucketId(Integer bucketId) {
-        this.bucketId = bucketId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -114,18 +114,19 @@ public class Bucket {
 
     @Override
     public String toString() {
-        return "Bucket [bucketId=" + bucketId + ", title=" + title + ", image=" + image + ", category=" + category
-                + ", user=" + user + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priority=" + priority + ", url="
-                + url + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement + "]";
+        return "Bucket [id=" + id + ", title=" + title + ", image=" + image + ", category=" + category + ", user="
+                + user + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priority=" + priority + ", url=" + url
+                + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement + "]";
     }
 
     public Bucket() {
 
     }
 
-    public Bucket(Integer bucketId, String title, String image, Category category, User user, Integer budjet,
-            LocalDate dueDate, Priority priority, String url, String memo, LocalDate creationDate, Boolean achevement) {
-        this.bucketId = bucketId;
+    public Bucket(Integer id, String title, String image, Category category, User user, Integer budjet,
+            LocalDate dueDate,
+            Priority priority, String url, String memo, LocalDate creationDate, Boolean achevement) {
+        this.id = id;
         this.title = title;
         this.image = image;
         this.category = category;

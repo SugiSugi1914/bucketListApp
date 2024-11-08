@@ -1,15 +1,15 @@
 package com.example.backetl_ist_app.domain;
 
 public class Priority {
-    private Integer priorityId;
+    private Integer id;
     private String priority;
 
-    public Integer getPriorityId() {
-        return priorityId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPriorityId(Integer priorityId) {
-        this.priorityId = priorityId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPriority() {
@@ -22,15 +22,15 @@ public class Priority {
 
     @Override
     public String toString() {
-        return "Priority [priorityId=" + priorityId + ", priority=" + priority + "]";
+        return "Priority [id=" + id + ", priority=" + priority + "]";
     }
 
     public Priority() {
 
     }
 
-    public Priority(Integer priorityId, String priority) {
-        this.priorityId = priorityId;
+    public Priority(Integer id, String priority) {
+        this.id = id;
         this.priority = priority;
     }
 

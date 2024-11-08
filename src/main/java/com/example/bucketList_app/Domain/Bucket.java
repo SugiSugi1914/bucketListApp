@@ -1,4 +1,4 @@
-package com.example.backetList_app.Domain;
+package com.example.bucketList_app.Domain;
 
 import java.time.LocalDate;
 

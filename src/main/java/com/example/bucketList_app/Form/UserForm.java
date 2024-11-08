@@ -1,4 +1,4 @@
-package com.example.backetList_app.Form;
+package com.example.bucketList_app.Form;
 
 import org.springframework.web.multipart.MultipartFile;
 

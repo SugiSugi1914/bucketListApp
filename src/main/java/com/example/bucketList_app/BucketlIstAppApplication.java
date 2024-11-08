@@ -1,13 +1,13 @@
-package com.example.backetList_app;
+package com.example.bucketList_app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BacketlIstAppApplication {
+public class BucketlIstAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BacketlIstAppApplication.class, args);
+		SpringApplication.run(BucketlIstAppApplication.class, args);
 	}
 
 }

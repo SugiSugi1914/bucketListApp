@@ -1,10 +1,10 @@
-package com.example.backetl_ist_app;
+package com.example.bucketl_ist_app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BacketlIstAppApplicationTests {
+class BucketlIstAppApplicationTests {
 
 	@Test
 	void contextLoads() {

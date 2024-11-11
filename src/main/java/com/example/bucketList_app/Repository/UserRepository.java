@@ -1,5 +1,6 @@
-package com.example.backetList_app.repository;
+package com.example.bucketList_app.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import com.example.backetList_app.Domain.User;
+import com.example.bucketList_app.Domain.User;
 
 @Repository
 public class UserRepository {
@@ -29,12 +30,15 @@ public class UserRepository {
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
         user.setGender(rs.getString("gender"));
-        user.setRole(rs.getString("role"));
+        List<String> roleList = new ArrayList();
+        String role = rs.getString(("role"));
+        roleList.add(role);
+        user.setRole(roleList);
         return user;
     };
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM users ORDER BY id";
+        String sql = "SELECT * FROM users ";
         List<User> userList = template.query(sql, USER_ROW_MAPPER);
         return userList;
     }

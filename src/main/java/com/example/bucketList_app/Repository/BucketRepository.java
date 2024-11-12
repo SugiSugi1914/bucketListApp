@@ -34,26 +34,31 @@ public class BucketRepository {
         bucket.setCreationDate(rs.getDate("b_creation_date").toLocalDate());
         bucket.setAchevement(rs.getBoolean("b_achevement"));
 
-        Category category = new Category();
-        category.setId(rs.getInt("c_id"));
-        category.setCategory(rs.getString("c_category"));
 
-        User user = new User();
-        user.setId(rs.getInt("u_id"));
-        user.setName(rs.getString("u_name"));
-        user.setAge(rs.getInt("u_age"));
-        user.setEmail(rs.getString("u_email"));
-        user.setPassword(rs.getString("u_password"));
-        user.setGender(rs.getString("u_gender"));
-        List<String> roleList = new ArrayList<>();
-        String role = rs.getString("u_role");
-        roleList.add(role);
-        user.setRole(roleList);
-        user.setIcon(rs.getString("u_icon"));
+            Category category = new Category();
+                category.setId(rs.getInt("c_id"));
+                category.setCategory(rs.getString("c_category"));
+        bucket.setCategory(category);
 
-        Priority priority = new Priority();
-        priority.setId(rs.getInt("p_id"));
-        priority.setPriority(rs.getString("p_priority"));
+            User user = new User();
+                user.setId(rs.getInt("u_id"));
+                user.setName(rs.getString("u_name"));
+                user.setAge(rs.getInt("u_age"));
+                user.setEmail(rs.getString("u_email"));
+                user.setPassword(rs.getString("u_password"));
+                user.setGender (rs.getString("u_gender"));
+                List<String> roleList = new ArrayList<>();
+                String role = rs.getString("u_role");
+                roleList.add(role);
+                user.setRole(roleList); 
+                user.setIcon(rs.getString("u_icon"));
+        bucket.setUser(user);
+
+            Priority priority = new Priority();
+                priority.setId(rs.getInt("p_id"));
+                priority.setPriority(rs.getString("p_priority"));  
+        bucket.setPriority(priority);
+
 
         return bucket;
     };

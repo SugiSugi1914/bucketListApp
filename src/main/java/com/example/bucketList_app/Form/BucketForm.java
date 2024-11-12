@@ -18,6 +18,7 @@ public class BucketForm {
     private String memo;
     private LocalDate creationDate;
     private Boolean achevement;
+    private Boolean permission;
 
     public Integer getId() {
         return id;
@@ -115,11 +116,20 @@ public class BucketForm {
         this.achevement = achevement;
     }
 
+    public Boolean getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Boolean permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "BucketForm [id=" + id + ", title=" + title + ", image=" + image + ", categoryId=" + categoryId
                 + ", userId=" + userId + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priorityId=" + priorityId
                 + ", url=" + url + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement
-                + "]";
+                + ", permission=" + permission + "]";
     }
+
 }

@@ -33,32 +33,31 @@ public class BucketRepository {
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creation_date").toLocalDate());
         bucket.setAchevement(rs.getBoolean("b_achevement"));
+        bucket.setPermission(rs.getBoolean("b_permission"));
 
-
-            Category category = new Category();
-                category.setId(rs.getInt("c_id"));
-                category.setCategory(rs.getString("c_category"));
+        Category category = new Category();
+        category.setId(rs.getInt("c_id"));
+        category.setCategory(rs.getString("c_category"));
         bucket.setCategory(category);
 
-            User user = new User();
-                user.setId(rs.getInt("u_id"));
-                user.setName(rs.getString("u_name"));
-                user.setAge(rs.getInt("u_age"));
-                user.setEmail(rs.getString("u_email"));
-                user.setPassword(rs.getString("u_password"));
-                user.setGender (rs.getString("u_gender"));
-                List<String> roleList = new ArrayList<>();
-                String role = rs.getString("u_role");
-                roleList.add(role);
-                user.setRole(roleList); 
-                user.setIcon(rs.getString("u_icon"));
+        User user = new User();
+        user.setId(rs.getInt("u_id"));
+        user.setName(rs.getString("u_name"));
+        user.setAge(rs.getInt("u_age"));
+        user.setEmail(rs.getString("u_email"));
+        user.setPassword(rs.getString("u_password"));
+        user.setGender(rs.getString("u_gender"));
+        List<String> roleList = new ArrayList<>();
+        String role = rs.getString("u_role");
+        roleList.add(role);
+        user.setRole(roleList);
+        user.setIcon(rs.getString("u_icon"));
         bucket.setUser(user);
 
-            Priority priority = new Priority();
-                priority.setId(rs.getInt("p_id"));
-                priority.setPriority(rs.getString("p_priority"));  
+        Priority priority = new Priority();
+        priority.setId(rs.getInt("p_id"));
+        priority.setPriority(rs.getString("p_priority"));
         bucket.setPriority(priority);
-
 
         return bucket;
     };
@@ -75,8 +74,9 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -117,6 +117,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -159,6 +160,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -201,6 +203,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -242,6 +245,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -284,6 +288,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -326,6 +331,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -368,6 +374,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -410,6 +417,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -452,6 +460,7 @@ public class BucketRepository {
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
+                        b.permission AS b_permission,
 
                         c.id AS c_id,
                         c.category AS c_category,
@@ -483,8 +492,8 @@ public class BucketRepository {
 
     public void insert(Bucket bucket) {
         String sql = """
-                    INSERT INTO bucket(id, title, image, category_id, user_id, budjet, due_date, priority_id, url, memo, creation_date, achievement)
-                                VALUSE(:id, :title, :image, :category, :user, :budjet, :dueDate, :priority, :url, :memo, :creationDate, :achievement)
+                    INSERT INTO bucket(id, title, image, category_id, user_id, budjet, due_date, priority_id, url, memo, creation_date, achievement,permission)
+                                VALUSE(:id, :title, :image, :category, :user, :budjet, :dueDate, :priority, :url, :memo, :creationDate, :achievement,:permission)
                 """;
         SqlParameterSource param = new BeanPropertySqlParameterSource(bucket);
         template.update(sql, param);
@@ -493,7 +502,7 @@ public class BucketRepository {
     public void update(Bucket bucket) {
         String sql = """
                     UPDATE bucket
-                    SET id=:id, title=:title, image=:image, category_id=:category, user_id=:user, budjet=:budjet, due_date=:dueDate, priority=:priority, url=:url, memo=:memo, creation_date=:creationDate, achievement=:achievement)
+                    SET id=:id, title=:title, image=:image, category_id=:category, user_id=:user, budjet=:budjet, due_date=:dueDate, priority=:priority, url=:url, memo=:memo, creation_date=:creationDate, achievement=:achievement,permission=:permission)
                 """;
         SqlParameterSource param = new BeanPropertySqlParameterSource(bucket);
         template.update(sql, param);

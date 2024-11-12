@@ -36,6 +36,7 @@ public class ReportRepository {
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creationDate").toLocalDate());
         bucket.setAchevement(rs.getBoolean("b_achevement"));
+        bucket.setPermission(rs.getBoolean("b_permission"));
         report.setReportBucket(bucket);
 
         User ur_user = new User();
@@ -83,6 +84,7 @@ public class ReportRepository {
                     b.memo AS b_memo,
                     b.creation_date AS b_creationDate,
                     b.achevement AS b_achevement,
+                    b.permission AS b_permission,
 
                     ur.id AS u_id,
                     ur.name AS u_name,
@@ -130,6 +132,7 @@ public class ReportRepository {
                     b.memo AS b_memo,
                     b.creation_date AS b_creationDate,
                     b.achevement AS b_achevement,
+                    b.permission AS b_permission,
 
                     ur.id AS u_id,
                     ur.name AS u_name,

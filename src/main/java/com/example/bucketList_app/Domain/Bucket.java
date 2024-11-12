@@ -15,6 +15,7 @@ public class Bucket {
     private String memo;
     private LocalDate creationDate;
     private Boolean achevement;
+    private Boolean permission;
 
     public Integer getId() {
         return id;
@@ -112,32 +113,20 @@ public class Bucket {
         this.achevement = achevement;
     }
 
+    public Boolean getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Boolean permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "Bucket [id=" + id + ", title=" + title + ", image=" + image + ", category=" + category + ", user="
                 + user + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priority=" + priority + ", url=" + url
-                + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement + "]";
-    }
-
-    public Bucket() {
-
-    }
-
-    public Bucket(Integer id, String title, String image, Category category, User user, Integer budjet,
-            LocalDate dueDate,
-            Priority priority, String url, String memo, LocalDate creationDate, Boolean achevement) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.category = category;
-        this.user = user;
-        this.budjet = budjet;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.url = url;
-        this.memo = memo;
-        this.creationDate = creationDate;
-        this.achevement = achevement;
+                + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement + ", permission="
+                + permission + "]";
     }
 
 }

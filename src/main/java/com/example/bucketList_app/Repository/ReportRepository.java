@@ -24,7 +24,7 @@ public class ReportRepository {
         Report report = new Report();
         report.setId(rs.getInt("r_id"));
         report.setReport(rs.getString("r_report"));
-        report.setReportCategoryId(rs.getInt("report_category_id"));
+        report.setReportCategoryId(rs.getInt("r_report_category_id"));
 
         Bucket bucket = new Bucket();
         bucket.setId(rs.getInt("b_id"));

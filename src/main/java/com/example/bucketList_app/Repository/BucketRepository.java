@@ -16,10 +16,9 @@ import com.example.bucketList_app.Domain.Category;
 import com.example.bucketList_app.Domain.Priority;
 import com.example.bucketList_app.Domain.User;
 
-
 @Repository
 public class BucketRepository {
-    
+
     @Autowired
     private NamedParameterJdbcTemplate template;
 
@@ -34,6 +33,7 @@ public class BucketRepository {
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creation_date").toLocalDate());
         bucket.setAchevement(rs.getBoolean("b_achevement"));
+
 
             Category category = new Category();
                 category.setId(rs.getInt("c_id"));
@@ -59,13 +59,14 @@ public class BucketRepository {
                 priority.setPriority(rs.getString("p_priority"));  
         bucket.setPriority(priority);
 
+
         return bucket;
     };
 
     public Bucket findById(Integer id) {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -90,9 +91,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -107,7 +108,7 @@ public class BucketRepository {
     public List<Bucket> findByPriorityId(Integer priorityId) {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -117,7 +118,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -132,9 +133,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -145,11 +146,11 @@ public class BucketRepository {
         List<Bucket> bucketList = template.query(sql, param, BUCKET_ROW_MAPPER);
         return bucketList;
     }
-    
+
     public List<Bucket> findByCategoryId(Integer categoryId) {
-                String sql = """
+        String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -159,7 +160,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -174,9 +175,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -189,9 +190,9 @@ public class BucketRepository {
     }
 
     public List<Bucket> findAll() {
-                String sql = """
+        String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -201,7 +202,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -216,9 +217,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -228,11 +229,11 @@ public class BucketRepository {
         return bucketList;
     }
 
-    //※優先度が低い順で全件取得
+    // ※優先度が低い順で全件取得
     public List<Bucket> findAllByPriorityASC() {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -242,7 +243,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -257,9 +258,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -268,13 +269,13 @@ public class BucketRepository {
                 """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
-    }  
+    }
 
-    //※優先度が高い順で全件取得
+    // ※優先度が高い順で全件取得
     public List<Bucket> findAllByPriorityDESC() {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -284,7 +285,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -299,9 +300,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -312,11 +313,11 @@ public class BucketRepository {
         return bucketList;
     }
 
-    //※予算が安い順で全件取得
+    // ※予算が安い順で全件取得
     public List<Bucket> findByBudjetASC() {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -326,7 +327,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -341,9 +342,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -352,13 +353,13 @@ public class BucketRepository {
                 """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
-    }  
+    }
 
-    //※予算が高い順で全件取得
+    // ※予算が高い順で全件取得
     public List<Bucket> findByBudjetDESC() {
         String sql = """
                     SELECT
-                        b.id AS b_id
+                        b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
                         b.budjet AS b_budjet,
@@ -368,7 +369,7 @@ public class BucketRepository {
                         b.creation_date AS b_creation_date,
                         b.achevement AS b_achevement,
 
-                        c.id AS c_id
+                        c.id AS c_id,
                         c.category AS c_category,
 
                         u.id AS u_id,
@@ -383,9 +384,9 @@ public class BucketRepository {
                         p.id AS p_id,
                         p.priority AS p_priority,
 
-                    FROM bucket AS b 
+                    FROM bucket AS b
                     LEFT OUTER JOIN category AS c
-                    ON b.category_id = c.id 
+                    ON b.category_id = c.id
                     LEFT OUTER JOIN users AS u
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
@@ -394,91 +395,91 @@ public class BucketRepository {
                 """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
-    }  
+    }
 
-    //※期日が近い順で全件取得
+    // ※期日が近い順で全件取得
     public List<Bucket> findByDueDateASC() {
         String sql = """
-            SELECT
-                b.id AS b_id
-                b.title AS b_title,
-                b.image AS b_image,
-                b.budjet AS b_budjet,
-                b.due_date AS b_due_date,
-                b.url AS b_url,
-                b.memo AS b_memo,
-                b.creation_date AS b_creation_date,
-                b.achevement AS b_achevement,
+                    SELECT
+                        b.id AS b_id,
+                        b.title AS b_title,
+                        b.image AS b_image,
+                        b.budjet AS b_budjet,
+                        b.due_date AS b_due_date,
+                        b.url AS b_url,
+                        b.memo AS b_memo,
+                        b.creation_date AS b_creation_date,
+                        b.achevement AS b_achevement,
 
-                c.id AS c_id
-                c.category AS c_category,
+                        c.id AS c_id,
+                        c.category AS c_category,
 
-                u.id AS u_id,
-                u.name AS u_name,
-                u.age AS u_age,
-                u.email AS u_email,
-                u.password AS u_password,
-                u.gender AS u_gender,
-                u.role AS u_role,
-                u.icon AS u_icon,
+                        u.id AS u_id,
+                        u.name AS u_name,
+                        u.age AS u_age,
+                        u.email AS u_email,
+                        u.password AS u_password,
+                        u.gender AS u_gender,
+                        u.role AS u_role,
+                        u.icon AS u_icon,
 
-                p.id AS p_id,
-                p.priority AS p_priority,
+                        p.id AS p_id,
+                        p.priority AS p_priority,
 
-            FROM bucket AS b 
-            LEFT OUTER JOIN category AS c
-            ON b.category_id = c.id 
-            LEFT OUTER JOIN users AS u
-            ON b.user_id = u.id
-            LEFT OUTER JOIN priority AS p
-            ON b.priority_id = p.id
-            ORDER BY due_date ASC
-        """;
+                    FROM bucket AS b
+                    LEFT OUTER JOIN category AS c
+                    ON b.category_id = c.id
+                    LEFT OUTER JOIN users AS u
+                    ON b.user_id = u.id
+                    LEFT OUTER JOIN priority AS p
+                    ON b.priority_id = p.id
+                    ORDER BY due_date ASC
+                """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
-    } 
+    }
 
-    //※期日が遠い順で全件取得
+    // ※期日が遠い順で全件取得
     public List<Bucket> findByDueDateDESC() {
         String sql = """
-            SELECT
-                b.id AS b_id
-                b.title AS b_title,
-                b.image AS b_image,
-                b.budjet AS b_budjet,
-                b.due_date AS b_due_date,
-                b.url AS b_url,
-                b.memo AS b_memo,
-                b.creation_date AS b_creation_date,
-                b.achevement AS b_achevement,
+                    SELECT
+                        b.id AS b_id,
+                        b.title AS b_title,
+                        b.image AS b_image,
+                        b.budjet AS b_budjet,
+                        b.due_date AS b_due_date,
+                        b.url AS b_url,
+                        b.memo AS b_memo,
+                        b.creation_date AS b_creation_date,
+                        b.achevement AS b_achevement,
 
-                c.id AS c_id
-                c.category AS c_category,
+                        c.id AS c_id,
+                        c.category AS c_category,
 
-                u.id AS u_id,
-                u.name AS u_name,
-                u.age AS u_age,
-                u.email AS u_email,
-                u.password AS u_password,
-                u.gender AS u_gender,
-                u.role AS u_role,
-                u.icon AS u_icon,
+                        u.id AS u_id,
+                        u.name AS u_name,
+                        u.age AS u_age,
+                        u.email AS u_email,
+                        u.password AS u_password,
+                        u.gender AS u_gender,
+                        u.role AS u_role,
+                        u.icon AS u_icon,
 
-                p.id AS p_id,
-                p.priority AS p_priority,
+                        p.id AS p_id,
+                        p.priority AS p_priority,
 
-            FROM bucket AS b 
-            LEFT OUTER JOIN category AS c
-            ON b.category_id = c.id 
-            LEFT OUTER JOIN users AS u
-            ON b.user_id = u.id
-            LEFT OUTER JOIN priority AS p
-            ON b.priority_id = p.id
-            ORDER BY due_date DESC
-        """;
+                    FROM bucket AS b
+                    LEFT OUTER JOIN category AS c
+                    ON b.category_id = c.id
+                    LEFT OUTER JOIN users AS u
+                    ON b.user_id = u.id
+                    LEFT OUTER JOIN priority AS p
+                    ON b.priority_id = p.id
+                    ORDER BY due_date DESC
+                """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
-        return bucketList;    
-    }  
+        return bucketList;
+    }
 
     public void insert(Bucket bucket) {
         String sql = """

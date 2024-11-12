@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.bucketList_app.Domain.Bucket;
 import com.example.bucketList_app.Domain.Report;
-import com.example.bucketList_app.Domain.ReportCategory;
 import com.example.bucketList_app.Domain.User;
 
 @Repository
@@ -25,9 +24,7 @@ public class ReportRepository {
         Report report = new Report();
         report.setId(rs.getInt("r_id"));
         report.setReport(rs.getString("r_report"));
-        List<String> reportCategoryList = new ArrayList<>();
-        reportCategoryList.add(rs.getString("r_report_category"));
-        report.setReportCategory(reportCategoryList);
+        report.setReportCategoryId(rs.getInt("report_category_id"));
 
         Bucket bucket = new Bucket();
         bucket.setId(rs.getInt("b_id"));
@@ -40,7 +37,6 @@ public class ReportRepository {
         bucket.setCreationDate(rs.getDate("b_creationDate").toLocalDate());
         bucket.setAchevement(rs.getBoolean("b_achevement"));
         report.setReportBucket(bucket);
-        ;
 
         User ur_user = new User();
         ur_user.setId(rs.getInt("ur_id"));
@@ -54,7 +50,6 @@ public class ReportRepository {
         ur_user.setRole(roleList);
         ur_user.setIcon(rs.getString("ur_icon"));
         report.setReportUser(ur_user);
-        ;
 
         User us_user = new User();
         us_user.setId(rs.getInt("us_id"));
@@ -69,16 +64,12 @@ public class ReportRepository {
         us_user.setIcon(rs.getString("us_icon"));
         report.setSuspicionUser(us_user);
 
-        ReportCategory reportCategory = new ReportCategory();
-        reportCategory.setId(rs.getInt("rc_id"));
-        reportCategory.setReportCategory(rs.getString("rc_report_category"));
-
         return report;
     };
 
     public List<Report> findAllExceptionCategoryAndPriority() {
         String sql = """
-                        SELECT
+                SELECT
                     r.id AS r_id,
                     r.report AS r_report,
                     r.report_category_id AS r_report_category_id,
@@ -100,7 +91,7 @@ public class ReportRepository {
                     ur.password AS u_password,
                     ur.gender AS u_gender,
                     ur.role AS u_role,
-                    ur.icon AS u_icon
+                    ur.icon AS u_icon,
 
                     us.id AS u_id,
                     us.name AS u_name,
@@ -109,10 +100,7 @@ public class ReportRepository {
                     us.password AS u_password,
                     us.gender AS u_gender,
                     us.role AS u_role,
-                    us.icon AS u_icon
-
-                    rc.id AS rc_id,
-                    rc.category AS rc_report_category
+                    us.icon AS u_icon,
 
                 FROM report AS r
                 JOIN bucket AS b
@@ -121,8 +109,6 @@ public class ReportRepository {
                 ON r.report_user_id = ur.id
                 JOIN users AS us
                 ON r.report_user_id = us.id
-                JOIN report_category AS rc
-                ON r.report_user_id = rc.id
                         """;
         List<Report> reportList = template.query(sql, REPORT_ROW_MAPPER);
         return reportList;
@@ -131,7 +117,7 @@ public class ReportRepository {
     public Report findById(Integer id) {
         String sql = """
                 SELECT
-                r.id AS r_id,
+                    r.id AS r_id,
                     r.report AS r_report,
                     r.report_category_id AS r_report_category_id,
 
@@ -152,7 +138,7 @@ public class ReportRepository {
                     ur.password AS u_password,
                     ur.gender AS u_gender,
                     ur.role AS u_role,
-                    ur.icon AS u_icon
+                    ur.icon AS u_icon,
 
                     us.id AS u_id,
                     us.name AS u_name,
@@ -161,10 +147,7 @@ public class ReportRepository {
                     us.password AS u_password,
                     us.gender AS u_gender,
                     us.role AS u_role,
-                    us.icon AS u_icon
-
-                    rc.id AS rc_id,
-                    rc.report_category AS rc_report_category
+                    us.icon AS u_icon,
 
                 FROM report AS r
                 JOIN bucket AS b
@@ -173,10 +156,6 @@ public class ReportRepository {
                 ON r.report_user_id = ur.id
                 JOIN users AS us
                 ON r.report_user_id = us.id
-                JOIN report_category AS rc
-                ON r.report_user_id = rc.id
-
-
                 WHERE id=:id
                 """;
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
@@ -188,7 +167,7 @@ public class ReportRepository {
     public void update(Report report) {
         String sql = """
                 UPDATE report
-                SET (id=:id,report=:report,report_category_id=:report_category,report_bucket_id=:reportBucket,report_user_id=:reportUser,suspicion_user_id=:suspicionUsers)
+                SET (id=:id,report=:report,report_category_id=:reportCategoryId,report_bucket_id=:reportBucket,report_user_id=:reportUser,suspicion_user_id=:suspicionUser)
                 """;
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(report);
@@ -207,7 +186,7 @@ public class ReportRepository {
     public void insert(Report report) {
         String sql = """
                 INSERT INTO report(id,report,report_category_id,report_bucket_id,report_user_id,suspicion_user_id)
-                VALUES(:id,:report,:report_category,:reportBucket,:reportUser,:suspicionUser)
+                VALUES(:id,:report,:reportCategoryId,:reportBucket,:reportUser,:suspicionUser)
                 """;
         SqlParameterSource param = new BeanPropertySqlParameterSource(report);
         template.update(sql, param);

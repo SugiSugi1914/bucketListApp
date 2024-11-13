@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,16 @@ public class UserRepository {
         String sql = "SELECT * FROM users ";
         List<User> userList = template.query(sql, USER_ROW_MAPPER);
         return userList;
+    }
+
+    public User findByEmail(String email) {
+        String sql = "SELECT id,name,icon,age,email,password,gender,role FROM users WHERE email=:email";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+        try {
+            return template.queryForObject(sql, param, USER_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // メールアドレスに該当するユーザーがいない場合にnullを返す
+        }
     }
 
     public User findById(Integer id) {

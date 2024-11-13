@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,8 @@ public class UserRepository {
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 
         try {
-            return template.queryForObject(sql, param, USER_ROW_MAPPER);
+             User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
+             return user;
         } catch (EmptyResultDataAccessException e) {
             return null; // 指定されたIDのユーザーが存在しない場合にnullを返す
         }

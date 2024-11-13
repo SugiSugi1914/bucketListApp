@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Domain;
 
-import java.util.List;
 
 public class User {
     private Integer id;

@@ -34,7 +34,7 @@ public class ReportRepository {
         bucket.setUrl(rs.getString("b_url"));
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creationDate").toLocalDate());
-        bucket.setAchevement(rs.getBoolean("b_achevement"));
+        bucket.setAchievement(rs.getBoolean("b_achevement"));
         bucket.setPermission(rs.getBoolean("b_permission"));
         report.setReportBucket(bucket);
 

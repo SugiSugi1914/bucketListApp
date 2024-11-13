@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +46,7 @@ public class BucketRepository {
         user.setEmail(rs.getString("u_email"));
         user.setPassword(rs.getString("u_password"));
         user.setGender(rs.getString("u_gender"));
-        List<String> roleList = new ArrayList<>();
-        String role = rs.getString("u_role");
-        roleList.add(role);
-        user.setRole(roleList);
+        user.setRole(rs.getString("u_role"));
         user.setIcon(rs.getString("u_icon"));
         bucket.setUser(user);
 

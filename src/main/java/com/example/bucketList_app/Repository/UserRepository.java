@@ -30,10 +30,7 @@ public class UserRepository {
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
         user.setGender(rs.getString("gender"));
-        List<String> roleList = new ArrayList();
-        String role = rs.getString(("role"));
-        roleList.add(role);
-        user.setRole(roleList);
+        user.setRole(rs.getString("role"));
         return user;
     };
 

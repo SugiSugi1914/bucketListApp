@@ -17,109 +17,84 @@ public class BucketForm {
     private String url;
     private String memo;
     private LocalDate creationDate;
-    private Boolean achevement;
+    private Boolean achievement;
     private Boolean permission;
-
+    
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public MultipartFile getImage() {
         return image;
     }
-
     public void setImage(MultipartFile image) {
         this.image = image;
     }
-
     public Integer getCategoryId() {
         return categoryId;
     }
-
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-
     public Integer getUserId() {
         return userId;
     }
-
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
     public Integer getBudjet() {
         return budjet;
     }
-
     public void setBudjet(Integer budjet) {
         this.budjet = budjet;
     }
-
     public LocalDate getDueDate() {
         return dueDate;
     }
-
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
-
     public Integer getPriorityId() {
         return priorityId;
     }
-
     public void setPriorityId(Integer priorityId) {
         this.priorityId = priorityId;
     }
-
     public String getUrl() {
         return url;
     }
-
     public void setUrl(String url) {
         this.url = url;
     }
-
     public String getMemo() {
         return memo;
     }
-
     public void setMemo(String memo) {
         this.memo = memo;
     }
-
     public LocalDate getCreationDate() {
         return creationDate;
     }
-
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
-
-    public Boolean getAchevement() {
-        return achevement;
+    public Boolean getAchievement() {
+        return achievement;
     }
-
-    public void setAchevement(Boolean achevement) {
-        this.achevement = achevement;
+    public void setAchievement(Boolean achievement) {
+        this.achievement = achievement;
     }
-
     public Boolean getPermission() {
         return permission;
     }
-
     public void setPermission(Boolean permission) {
         this.permission = permission;
     }
@@ -128,8 +103,7 @@ public class BucketForm {
     public String toString() {
         return "BucketForm [id=" + id + ", title=" + title + ", image=" + image + ", categoryId=" + categoryId
                 + ", userId=" + userId + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priorityId=" + priorityId
-                + ", url=" + url + ", memo=" + memo + ", creationDate=" + creationDate + ", achevement=" + achevement
+                + ", url=" + url + ", memo=" + memo + ", creationDate=" + creationDate + ", achievement=" + achievement
                 + ", permission=" + permission + "]";
-    }
-
+    }    
 }

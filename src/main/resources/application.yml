@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: bucketList_app
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bucketList}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}

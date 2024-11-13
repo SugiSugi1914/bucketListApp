@@ -31,7 +31,7 @@ public class BucketRepository {
         bucket.setUrl(rs.getString("b_url"));
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creation_date").toLocalDate());
-        bucket.setAchevement(rs.getBoolean("b_achevement"));
+        bucket.setAchievement(rs.getBoolean("b_achievement"));
         bucket.setPermission(rs.getBoolean("b_permission"));
 
         Category category = new Category();
@@ -69,7 +69,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -112,7 +112,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -155,7 +155,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -198,7 +198,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -214,7 +214,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -240,7 +240,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -256,7 +256,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -283,7 +283,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -299,7 +299,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -326,7 +326,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -342,7 +342,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -369,7 +369,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -385,7 +385,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -412,7 +412,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -428,7 +428,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -455,7 +455,7 @@ public class BucketRepository {
                         b.url AS b_url,
                         b.memo AS b_memo,
                         b.creation_date AS b_creation_date,
-                        b.achevement AS b_achevement,
+                        b.achievement AS b_achievement,
                         b.permission AS b_permission,
 
                         c.id AS c_id,
@@ -471,7 +471,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c

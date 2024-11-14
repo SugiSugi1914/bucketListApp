@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+  lang="ja"
+  xmlns:th="//www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header-container"></div>
+    <div class="main-container">
+      <div class="list-container">
+        <legend class="page-title">ログイン画面</legend>
+        <div class="padding-container">
+          <form th:action="@{/login}" method="POST" th:object="${loginForm}">
+            <table class="form-table">
+              <div class="error-message-container">
+                <p
+                  th:if="${loginError} != null"
+                  th:text="${loginError}"
+                  class="text-danger"
+                >
+                  ログインエラーメッセージ
+                </p>
+              </div>
+              <tr>
+                <td class="form-head">
+                  <p>メールアドレス</p>
+                </td>
+                <td>
+                  <input
+                    class="form-input"
+                    type="text"
+                    th:field="*{email}"
+                    id="email"
+                  />
+                  <div th:errors="*{email}" style="color: red"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>パスワード</p>
+                </td>
+                <td>
+                  <input
+                    class="form-input"
+                    type="password"
+                    th:field="*{password}"
+                    id="password"
+                  />
+                  <div th:errors="*{password}" style="color: red"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center">
+                  <br />
+                  <button type="submit">ログイン</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-container"></div>
+  </body>
+</html>

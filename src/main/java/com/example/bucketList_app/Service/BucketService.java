@@ -1,5 +1,6 @@
 package com.example.bucketList_app.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,9 @@ public class BucketService {
 
     public List<Bucket> findAll() {
         return bucketRepository.findAll();
+    }
+
+    public List<Bucket> findAllPermission() {
+        return bucketRepository.findAllPermission();
     }
 }

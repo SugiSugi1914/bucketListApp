@@ -228,6 +228,49 @@ public class BucketRepository {
         return bucketList;
     }
 
+    //permissionがtrueのもの全て取得
+    public List<Bucket> findAllPermission() {
+        String sql = """
+                    SELECT
+                        b.id AS b_id,
+                        b.title AS b_title,
+                        b.image AS b_image,
+                        b.budjet AS b_budjet,
+                        b.due_date AS b_due_date,
+                        b.url AS b_url,
+                        b.memo AS b_memo,
+                        b.creation_date AS b_creation_date,
+                        b.achievement AS b_achievement,
+                        b.permission AS b_permission,
+
+                        c.id AS c_id,
+                        c.category AS c_category,
+
+                        u.id AS u_id,
+                        u.name AS u_name,
+                        u.age AS u_age,
+                        u.email AS u_email,
+                        u.password AS u_password,
+                        u.gender AS u_gender,
+                        u.role AS u_role,
+                        u.icon AS u_icon,
+
+                        p.id AS p_id,
+                        p.priority AS p_priority
+
+                    FROM bucket AS b
+                    LEFT OUTER JOIN category AS c
+                    ON b.category_id = c.id
+                    LEFT OUTER JOIN users AS u
+                    ON b.user_id = u.id
+                    LEFT OUTER JOIN priority AS p
+                    ON b.priority_id = p.id
+                    WHERE b.permission = true
+                """;
+        List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
+        return bucketList;
+    }
+
     // ※優先度が低い順で全件取得
     public List<Bucket> findAllByPriorityASC() {
         String sql = """

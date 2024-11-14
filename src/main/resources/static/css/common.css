@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.bucket-content {
+    display: flex; /* 横並びにするためにflexboxを使用 */
+    align-items: center; /* アイコンと名前を垂直方向に中央揃え */
+    margin-bottom: 20px; /* アイテム間にスペースを追加 */
+}
+
+.bucket-icon-container {
+    display: flex;
+    flex-direction: column; /* アイコンと名前を縦に並べる */
+    align-items: center; /* アイコンと名前を中央揃え */
+    margin-right: 15px; /* アイコンと名前の間にスペースを追加 */
+}
+
+.bucket-icon {
+    width: 50px;     /* アイコンの幅 */
+    height: 50px;    /* アイコンの高さ */
+    border-radius: 50%; /* 画像を円形に */
+    object-fit: cover;  /* 画像の歪みを防ぐ */
+    margin-bottom: 5px;  /* アイコンと名前の間に少しスペースを追加 */
+}
+
+.bucket-user-name {
+    font-size: 16px; /* 名前のフォントサイズ */
+    font-weight: bold; /* 名前を太字に */
+    margin: 0; /* 余白をリセット */
+}
+
+.bucket-title-container {
+    flex-grow: 1; /* タイトルを横に広げる */
+}
+
+.bucket-title {
+    font-size: 18px; /* タイトルのフォントサイズ */
+    font-weight: normal; /* タイトルは普通の太さ */
+    margin: 0; /* 余白をリセット */
+}
+
+

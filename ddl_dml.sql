@@ -1,9 +1,9 @@
 -- テーブル削除
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS bucket ;
-DROP TABLE IF EXISTS report;
-DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS priority;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS bucket CASCADE;
+DROP TABLE IF EXISTS report CASCADE;
+DROP TABLE IF EXISTS category CASCADE;
+DROP TABLE IF EXISTS priority CASCADE;
 
 -- テーブル生成
 
@@ -88,16 +88,16 @@ INSERT INTO priority (priority) VALUES
 
 -- Insert into "users" table
 INSERT INTO users (name, icon, age, email, password, gender, role) VALUES
-('John Doe', 'icon1.png', 28, 'john.doe@example.com', 'password123', 'Male', 'User'),
-('Jane Smith', 'icon2.png', 34, 'jane.smith@example.com', 'password456', 'Female', 'Admin'),
-('Mike Johnson', 'icon3.png', 45, 'mike.johnson@example.com', 'password789', 'Male', 'User'),
-('Emily Davis', 'icon4.png', 22, 'emily.davis@example.com', 'password321', 'Female', 'User'),
-('David Brown', 'icon5.png', 37, 'david.brown@example.com', 'password654', 'Male', 'Admin'),
-('Sarah Wilson', 'icon6.png', 29, 'sarah.wilson@example.com', 'password987', 'Female', 'User'),
-('Chris Lee', 'icon7.png', 31, 'chris.lee@example.com', 'password654', 'Male', 'User'),
-('Ashley Harris', 'icon8.png', 26, 'ashley.harris@example.com', 'password321', 'Female', 'User'),
-('James Clark', 'icon9.png', 40, 'james.clark@example.com', 'password111', 'Male', 'Admin'),
-('Sophia Taylor', 'icon10.png', 33, 'sophia.taylor@example.com', 'password222', 'Female', 'User');
+('John Doe', 'icon_1.png', 28, 'john.doe@example.com', 'password123', 'Male', 'User'),
+('Jane Smith', 'icon_2.png', 34, 'jane.smith@example.com', 'password456', 'Female', 'Admin'),
+('Mike Johnson', 'icon_3.png', 45, 'mike.johnson@example.com', 'password789', 'Male', 'User'),
+('Emily Davis', 'icon_4.png', 22, 'emily.davis@example.com', 'password321', 'Female', 'User'),
+('David Brown', 'icon_5.png', 37, 'david.brown@example.com', 'password654', 'Male', 'Admin'),
+('Sarah Wilson', 'icon_6.png', 29, 'sarah.wilson@example.com', 'password987', 'Female', 'User'),
+('Chris Lee', 'icon_7.png', 31, 'chris.lee@example.com', 'password654', 'Male', 'User'),
+('Ashley Harris', 'icon_8.png', 26, 'ashley.harris@example.com', 'password321', 'Female', 'User'),
+('James Clark', 'icon_9.png', 40, 'james.clark@example.com', 'password111', 'Male', 'Admin'),
+('Sophia Taylor', 'icon_10.png', 33, 'sophia.taylor@example.com', 'password222', 'Female', 'User');
 
 -- Insert into "bucket" table
 INSERT INTO bucket (title, image, category_id, user_id, budjet, due_date, priority_id, url, memo, creation_date, achievement, permission) VALUES
@@ -110,7 +110,12 @@ INSERT INTO bucket (title, image, category_id, user_id, budjet, due_date, priori
 ('夕食を作る', 'food.png', 7, 7, 50, '2024-11-10', 1, 'https://food.com', '特別な夕食を作る', '2024-11-06', false, false),
 ('新しい服を買う', 'clothes.png', 8, 8, 150, '2024-11-20', 1, 'https://fashion.com', '新しい服を買いに行く', '2024-11-07', true, false),
 ('ビジネスミーティング', 'meeting.png', 9, 9, 500, '2024-12-01', 4, 'https://business.com', 'ビジネスミーティングに参加する', '2024-11-08', false, false),
-('映画の夜', 'movie.png', 10, 10, 30, '2024-11-10', 2, 'https://movie.com', '友達と映画を観る', '2024-11-09', true, false);
+('映画の夜', 'movie.png', 10, 10, 30, '2024-11-10', 2, 'https://movie.com', '友達と映画を観る', '2024-11-09', true, false),
+('旅行を計画する', 'travel.png', 6, 1, 10000, '2025-03-01', 2, 'https://travel.com', '友人と一緒に海外旅行を計画する', '2024-11-05', false, true),
+('新しいギターを買う', 'guitar.png', 7, 2, 1500, '2024-12-20', 1, 'https://guitar.com', 'エレキギターを購入してバンド活動に参加する', '2024-11-06', false, true),
+('本を10冊読む', 'books.png', 8, 3, 0, '2025-01-31', 3, 'https://bookstore.com', '年末までに本を10冊読むチャレンジ', '2024-11-07', false, true),
+('フィットネスプランを立てる', 'fitness.png', 9, 4, 500, '2024-12-01', 2, 'https://fitness.com', '体力向上のためのフィットネスプランを作成する', '2024-11-08', false, true),
+('オンラインコースを受講する', 'online_course.png', 10, 5, 1000, '2025-02-28', 1, 'https://onlinecourse.com', '技術スキルを向上させるためにオンラインコースを受講する', '2024-11-09', false, true);
 
 -- Insert into "report" table
 INSERT INTO report (report, report_category_id, report_bucket_id, report_user_id, suspicion_user_id) VALUES

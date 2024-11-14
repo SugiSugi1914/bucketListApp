@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Domain;
 
-
 public class User {
     private Integer id;
     private String name;
@@ -80,5 +79,9 @@ public class User {
         return "User [id=" + id + ", name=" + name + ", age=" + age + ", email=" + email + ", password=" + password
                 + ", gender=" + gender + ", role=" + role + ", icon=" + icon + "]";
     }
-
+    // public User orElseThrow(Object object) {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method
+    // 'orElseThrow'");
+    // }
 }

@@ -44,10 +44,20 @@ public class UserRepository {
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 
         try {
-             User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
-             return user;
+            User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
+            return user;
         } catch (EmptyResultDataAccessException e) {
             return null; // 指定されたIDのユーザーが存在しない場合にnullを返す
+        }
+    }
+
+    public User findByEmail(String email) {
+        String sql = "SELECT id,name,icon,age,email,password,gender,role FROM users WHERE email=:email";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+        try {
+            return template.queryForObject(sql, param, USER_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // メールアドレスに該当するユーザーがいない場合にnullを返す
         }
     }
 

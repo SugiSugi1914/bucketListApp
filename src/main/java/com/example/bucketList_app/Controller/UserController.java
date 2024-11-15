@@ -23,11 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
-    public String showTimeLine() {
-        return "timeLine";
-    }
-
     @RequestMapping("/toLogin")
     public String toLogin(LoginForm form, Model model, @RequestParam(value = "error", required = false) String error) {
         if (error != null) {

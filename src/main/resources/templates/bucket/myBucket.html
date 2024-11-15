@@ -7,11 +7,8 @@
     <title>BucketList.jp</title>
     <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
     <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
-    <link 
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    rel="stylesheet"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-    crossorigin="anonymous" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -27,8 +24,12 @@
                         <tr>
                             <th>名前</th>
                             <td th:text="${name}">ユーザー名</td>
+                            <td>
+                                <a th:href="@{/bucket/toCreation}" class="btn btn-create">
+                                    <i class="fa fa-plus"></i> バケット追加
+                                </a>
+                            </td>
                         </tr>
-
                         <tr th:each="bucket, iterStat : ${bucketList}">
                             <td>
                                 <input type="checkbox" th:id="'bucketCheckbox' + ${iterStat.index}" />
@@ -39,13 +40,6 @@
                             <td th:text="${bucket.title}">BucketListのタイトル</td>
                             <td>
                                 <a th:href="@{/bucket/edit/{id}(id=${bucket.id})}" class="btn btn-primary">詳細・編集</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="4">
-                                <br>
-                                <a href="./updateInfo.html" th:href="@{/user/toUpdate}">ユーザー情報の変更・退会はこちら</a>
                             </td>
                         </tr>
                     </table>

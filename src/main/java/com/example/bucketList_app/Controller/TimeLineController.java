@@ -12,20 +12,20 @@ import com.example.bucketList_app.Domain.Bucket;
 import com.example.bucketList_app.Service.BucketService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/timeLine")
 public class TimeLineController {
     
     @Autowired
     private BucketService bucketService;
 
-    @RequestMapping("/top")
-    public String top(Model model) {
+    @RequestMapping("/toTimeLine")
+    public String toTimeLine(Model model) {
         List<Bucket> bucketList = new ArrayList<>();
         bucketList = bucketService.findAllPermission();
         if(bucketList.size() == 0) {
             model.addAttribute("message", "自身の作成したバケットを投稿してみよう！");
         }
         model.addAttribute("bucketList", bucketList);
-        return "top";
+        return "timeLine";
     }
 }

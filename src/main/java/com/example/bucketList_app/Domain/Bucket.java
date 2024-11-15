@@ -8,7 +8,7 @@ public class Bucket {
     private String image;
     private Category category;
     private User user;
-    private Integer budjet;
+    private Integer budget;
     private LocalDate dueDate;
     private Priority priority;
     private String url;
@@ -47,11 +47,11 @@ public class Bucket {
     public void setUser(User user) {
         this.user = user;
     }
-    public Integer getBudjet() {
-        return budjet;
+    public Integer getBudget() {
+        return budget;
     }
-    public void setBudjet(Integer budjet) {
-        this.budjet = budjet;
+    public void setBudget(Integer budget) {
+        this.budget = budget;
     }
     public LocalDate getDueDate() {
         return dueDate;
@@ -95,11 +95,11 @@ public class Bucket {
     public void setPermission(Boolean permission) {
         this.permission = permission;
     }
-    
+
     @Override
     public String toString() {
         return "Bucket [id=" + id + ", title=" + title + ", image=" + image + ", category=" + category + ", user="
-                + user + ", budjet=" + budjet + ", dueDate=" + dueDate + ", priority=" + priority + ", url=" + url
+                + user + ", budget=" + budget + ", dueDate=" + dueDate + ", priority=" + priority + ", url=" + url
                 + ", memo=" + memo + ", creationDate=" + creationDate + ", achievement=" + achievement + ", permission="
                 + permission + "]";
     }

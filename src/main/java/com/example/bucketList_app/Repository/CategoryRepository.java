@@ -25,14 +25,14 @@ public class CategoryRepository {
     };
 
     public Category findById(Integer id) {
-        String sql = "SELECT category FROM category WHERE id = :id";
+        String sql = "SELECT id, category FROM category WHERE id = :id";
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
         Category category = template.queryForObject(sql, param, CATEGORY_ROW_MAPPER);
         return category;
     }
 
     public List<Category> findAll() {
-        String sql = "SELECT category FROM category";
+        String sql = "SELECT id, category FROM category";
         List<Category> categoryList = template.query(sql, CATEGORY_ROW_MAPPER);
         return categoryList;
     }

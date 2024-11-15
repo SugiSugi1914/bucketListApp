@@ -29,7 +29,7 @@ public class ReportRepository {
         bucket.setId(rs.getInt("b_id"));
         bucket.setTitle(rs.getString("b_title"));
         bucket.setImage(rs.getString("b_image"));
-        bucket.setBudjet(rs.getInt("b_budjet"));
+        bucket.setBudget(rs.getInt("b_budget"));
         bucket.setDueDate(rs.getDate("b_dueDate").toLocalDate());
         bucket.setUrl(rs.getString("b_url"));
         bucket.setMemo(rs.getString("b_memo"));
@@ -73,7 +73,7 @@ public class ReportRepository {
                     b.id AS b_id,
                     b.title AS b_title,
                     b.image AS b_image,
-                    b.budjet AS b_budjet,
+                    b.budget AS b_budget,
                     b.due_date AS b_dueDate,
                     b.url AS b_url,
                     b.memo AS b_memo,
@@ -121,7 +121,7 @@ public class ReportRepository {
                     b.id AS b_id,
                     b.title AS b_title,
                     b.image AS b_image,
-                    b.budjet AS b_budjet,
+                    b.budget AS b_budget,
                     b.due_date AS b_dueDate,
                     b.url AS b_url,
                     b.memo AS b_memo,
@@ -165,7 +165,7 @@ public class ReportRepository {
     public void update(Report report) {
         String sql = """
                 UPDATE report
-                SET (id=:id,report=:report,report_category_id=:reportCategoryId,report_bucket_id=:reportBucket,report_user_id=:reportUser,suspicion_user_id=:suspicionUser)
+                SET (report=:report,report_category_id=:reportCategoryId,report_bucket_id=:reportBucket,report_user_id=:reportUser,suspicion_user_id=:suspicionUser)
                 """;
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(report);
@@ -183,8 +183,8 @@ public class ReportRepository {
 
     public void insert(Report report) {
         String sql = """
-                INSERT INTO report(id,report,report_category_id,report_bucket_id,report_user_id,suspicion_user_id)
-                VALUES(:id,:report,:reportCategoryId,:reportBucket,:reportUser,:suspicionUser)
+                INSERT INTO report(report,report_category_id,report_bucket_id,report_user_id,suspicion_user_id)
+                VALUES(:report,:reportCategoryId,:reportBucket,:reportUser,:suspicionUser)
                 """;
         SqlParameterSource param = new BeanPropertySqlParameterSource(report);
         template.update(sql, param);

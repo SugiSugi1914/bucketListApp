@@ -26,7 +26,7 @@ public class BucketRepository {
         bucket.setId(rs.getInt("b_id"));
         bucket.setTitle(rs.getString("b_title"));
         bucket.setImage(rs.getString("b_image"));
-        bucket.setBudjet(rs.getInt("b_budjet"));
+        bucket.setBudget(rs.getInt("b_budget"));
         bucket.setDueDate(rs.getDate("b_due_date").toLocalDate());
         bucket.setUrl(rs.getString("b_url"));
         bucket.setMemo(rs.getString("b_memo"));
@@ -64,7 +64,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -107,7 +107,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -150,7 +150,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -193,7 +193,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -235,7 +235,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -278,7 +278,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -321,7 +321,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -358,13 +358,13 @@ public class BucketRepository {
     }
 
     // ※予算が安い順で全件取得
-    public List<Bucket> findByBudjetASC() {
+    public List<Bucket> findByBudgetASC() {
         String sql = """
                     SELECT
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -394,20 +394,20 @@ public class BucketRepository {
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
                     ON b.priority_id = p.id
-                    ORDER BY budjet ASC
+                    ORDER BY budget ASC
                 """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
     }
 
     // ※予算が高い順で全件取得
-    public List<Bucket> findByBudjetDESC() {
+    public List<Bucket> findByBudgetDESC() {
         String sql = """
                     SELECT
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -437,7 +437,7 @@ public class BucketRepository {
                     ON b.user_id = u.id
                     LEFT OUTER JOIN priority AS p
                     ON b.priority_id = p.id
-                    ORDER BY budjet DESC
+                    ORDER BY budget DESC
                 """;
         List<Bucket> bucketList = template.query(sql, BUCKET_ROW_MAPPER);
         return bucketList;
@@ -450,7 +450,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -493,7 +493,7 @@ public class BucketRepository {
                         b.id AS b_id,
                         b.title AS b_title,
                         b.image AS b_image,
-                        b.budjet AS b_budjet,
+                        b.budget AS b_budget,
                         b.due_date AS b_due_date,
                         b.url AS b_url,
                         b.memo AS b_memo,
@@ -531,17 +531,28 @@ public class BucketRepository {
 
     public void insert(Bucket bucket) {
         String sql = """
-                    INSERT INTO bucket(id, title, image, category_id, user_id, budjet, due_date, priority_id, url, memo, creation_date, achievement,permission)
-                                VALUSE(:id, :title, :image, :category, :user, :budjet, :dueDate, :priority, :url, :memo, :creationDate, :achievement,:permission)
+                    INSERT INTO bucket(title, image, category_id, user_id, budget, due_date, priority_id, url, memo, creation_date, achievement,permission)
+                                VALUES(:title, :image, :categoryId, :userId, :budget, :dueDate, :priorityId, :url, :memo, :creationDate, false,false)
                 """;
-        SqlParameterSource param = new BeanPropertySqlParameterSource(bucket);
+        SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("title", bucket.getTitle())
+        .addValue("image", bucket.getImage())
+        .addValue("categoryId", bucket.getCategory().getId())
+        .addValue("userId", bucket.getUser().getId()) 
+        .addValue("budget", bucket.getBudget())
+        .addValue("dueDate", bucket.getDueDate())
+        .addValue("priorityId", bucket.getPriority().getId())
+        .addValue("url", bucket.getUrl())
+        .addValue("memo", bucket.getMemo())
+        .addValue("creationDate", bucket.getCreationDate());
+
         template.update(sql, param);
     }
 
     public void update(Bucket bucket) {
         String sql = """
                     UPDATE bucket
-                    SET id=:id, title=:title, image=:image, category_id=:category, user_id=:user, budjet=:budjet, due_date=:dueDate, priority=:priority, url=:url, memo=:memo, creation_date=:creationDate, achievement=:achievement,permission=:permission)
+                    SET title=:title, image=:image, category_id=:category, user_id=:user, budget=:budget, due_date=:dueDate, priority=:priority, url=:url, memo=:memo, creation_date=:creationDate, achievement=:achievement,permission=:permission)
                 """;
         SqlParameterSource param = new BeanPropertySqlParameterSource(bucket);
         template.update(sql, param);

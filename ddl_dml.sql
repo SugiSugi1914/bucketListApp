@@ -38,7 +38,7 @@ CREATE TABLE bucket (
     image VARCHAR(255),
     category_id INTEGER,
     user_id INTEGER,
-    budjet INTEGER,
+    budget INTEGER,
     due_date DATE,
     priority_id INTEGER,
     url VARCHAR(255),
@@ -67,16 +67,16 @@ CREATE TABLE report (
 
 -- Insert into "category" table
 INSERT INTO category (category) VALUES
-('Technology'),
-('Health'),
-('Education'),
-('Sports'),
-('Music'),
-('Travel'),
-('Food'),
-('Fashion'),
-('Business'),
-('Entertainment');
+('未分類'),
+('旅行'),
+('自己研鑽'),
+('スポーツ'),
+('音楽'),
+('旅行'),
+('食事'),
+('健康・美容'),
+('ビジネス'),
+('家族・恋人');
 
 -- Insert into "priority" table
 INSERT INTO priority (priority) VALUES
@@ -88,7 +88,7 @@ INSERT INTO priority (priority) VALUES
 
 -- Insert into "users" table
 INSERT INTO users (name, icon, age, email, password, gender, role) VALUES
-('John Doe', 'icon_1.png', 28, 'john.doe@example.com', 'password123', 'Male', 'User'),
+('John Doe', 'icon_1.png', 28, 'john.doe@example.com', '$2a$10$L2hFnwOVwTdE.9lMp5C4b.RVDYXU5kkdqfWJqHMviNtPLqB4iPjO.', 'Male', 'User'),
 ('Jane Smith', 'icon_2.png', 34, 'jane.smith@example.com', 'password456', 'Female', 'Admin'),
 ('Mike Johnson', 'icon_3.png', 45, 'mike.johnson@example.com', 'password789', 'Male', 'User'),
 ('Emily Davis', 'icon_4.png', 22, 'emily.davis@example.com', 'password321', 'Female', 'User'),
@@ -100,7 +100,7 @@ INSERT INTO users (name, icon, age, email, password, gender, role) VALUES
 ('Sophia Taylor', 'icon_10.png', 33, 'sophia.taylor@example.com', 'password222', 'Female', 'User');
 
 -- Insert into "bucket" table
-INSERT INTO bucket (title, image, category_id, user_id, budjet, due_date, priority_id, url, memo, creation_date, achievement, permission) VALUES
+INSERT INTO bucket (title, image, category_id, user_id, budget, due_date, priority_id, url, memo, creation_date, achievement, permission) VALUES
 ('ウェブサイトを作成する', 'website.png', 1, 1, 5000, '2024-12-31', 3, 'https://example.com', 'ポートフォリオウェブサイトを作成する', '2024-11-01', false, false),
 ('健康診断', 'health.png', 2, 2, 300, '2024-11-30', 2, 'https://health.com', '年次健康診断を受ける', '2024-11-01', false, false),
 ('Javaを学ぶ', 'java.png', 3, 3, 0, '2025-06-30', 2, 'https://java.com', 'Javaのコースを修了する', '2024-11-02', false, false),

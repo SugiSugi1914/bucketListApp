@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.bucketList_app.Domain.Priority;
@@ -21,6 +23,13 @@ public class PriorityRepository {
         priority.setPriority(rs.getString("priority"));
         return priority;
     };
+
+    public Priority findById(Integer id) {
+        String sql = "SELECT id, priority FROM priority WHERE id = :id";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+        Priority priority = template.queryForObject(sql, param, PRIORITY_ROW_MAPPER);
+        return priority;
+    }
 
     public List<Priority> findAll() {
         String sql = "SELECT id,priority FROM priority";

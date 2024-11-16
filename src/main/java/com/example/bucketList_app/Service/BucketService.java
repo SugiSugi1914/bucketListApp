@@ -26,4 +26,8 @@ public class BucketService {
     public List<Bucket> findAllPermission() {
         return bucketRepository.findAllPermission();
     }
+
+    public void insert(Bucket bucket) {
+        bucketRepository.insert(bucket);
+    }
 }

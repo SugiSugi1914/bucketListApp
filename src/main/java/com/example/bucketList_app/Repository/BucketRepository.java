@@ -85,7 +85,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -128,7 +128,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -171,7 +171,7 @@ public class BucketRepository {
                         u.icon AS u_icon,
 
                         p.id AS p_id,
-                        p.priority AS p_priority,
+                        p.priority AS p_priority
 
                     FROM bucket AS b
                     LEFT OUTER JOIN category AS c
@@ -549,12 +549,25 @@ public class BucketRepository {
         template.update(sql, param);
     }
 
+    //SQL文変更のNamedParameterを変更する必要あり
     public void update(Bucket bucket) {
         String sql = """
                     UPDATE bucket
-                    SET title=:title, image=:image, category_id=:category, user_id=:user, budget=:budget, due_date=:dueDate, priority=:priority, url=:url, memo=:memo, creation_date=:creationDate, achievement=:achievement,permission=:permission)
+                    SET title=:title, image=:image, category_id=:categoryId, user_id=:userId, budget=:budget, due_date=:dueDate, priority_id=:priorityId, url=:url, memo=:memo, creation_date=:creationDate, achievement=false, permission=false
+                    WHERE id=:id
                 """;
-        SqlParameterSource param = new BeanPropertySqlParameterSource(bucket);
+        SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("id", bucket.getId())
+        .addValue("title", bucket.getTitle())
+        .addValue("image", bucket.getImage())
+        .addValue("categoryId", bucket.getCategory().getId())
+        .addValue("userId", bucket.getUser().getId()) 
+        .addValue("budget", bucket.getBudget())
+        .addValue("dueDate", bucket.getDueDate())
+        .addValue("priorityId", bucket.getPriority().getId())
+        .addValue("url", bucket.getUrl())
+        .addValue("memo", bucket.getMemo())
+        .addValue("creationDate", bucket.getCreationDate());
         template.update(sql, param);
     }
 

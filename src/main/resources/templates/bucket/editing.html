@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>バケット作成</title>
+    <title>バケット編集</title>
     <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
     <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
 </head>
@@ -16,33 +16,28 @@
         </div>
         <div class="main-container">
             <div class="list-container">
-                <legend class="page-title">バケット作成</legend>
+                <legend class="page-title">バケット編集</legend>
                 <div class="padding-container">
-                    <form th:action="@{/bucket/creation}" method="POST" enctype="multipart/form-data" th:object="${bucketForm}">
-                        <table class="form-table">
+                    <form th:action="@{/bucket/editing}" method="POST" th:object="${bucketForm}" enctype="multipart/form-data">
+                        <table>
                             <tr>
                                 <th>タイトル</th>
                                 <td>
-                                    <input type="text" th:field="*{title}" class="form-input" placeholder="タイトルを入力" required />
+                                    <input type="text" th:field="*{title}" placeholder="タイトルを入力" size="40" required />
                                     <div th:errors="*{title}" style="color: red"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>イメージ画像</th>
                                 <td>
-                                    <input type="file" th:field="*{image}" accept="image/*" class="form-input" />
+                                    <input type="file" th:field="*{image}" accept="image/*" />
                                     <div th:errors="*{image}" style="color: red"></div>
                                 </td>
-                            </tr>     
-                            <tr>
-                                <td>
-                                    <span style="color: #aaa; font-size: 0.9em;">イラストや画像をできるだけ設定しイメージを可視化させることをおすすめします</span>
-                                </td>
-                            </tr>                       
+                            </tr>
                             <tr>
                                 <th>カテゴリー</th>
                                 <td>
-                                    <select th:field="*{categoryId}" class="form-input" required>
+                                    <select th:field="*{categoryId}" required>
                                         <option value="">選択してください</option>
                                         <option value="1">未分類</option>
                                         <option value="2">旅行</option>
@@ -61,21 +56,21 @@
                             <tr>
                                 <th>予算</th>
                                 <td>
-                                    <input type="number" th:field="*{budget}" class="form-input" placeholder="予算を入力" min="0" step="1"/>
+                                    <input type="number" th:field="*{budget}" placeholder="予算を入力" min="0" step="1"/>
                                     <div th:errors="*{budget}" style="color: red"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>達成までの期限</th>
                                 <td>
-                                    <input type="date" th:field="*{dueDate}" class="form-input" required />
+                                    <input type="date" th:field="*{dueDate}" th:value="${#temporals.format(bucketForm.creationDate, 'yyyy/MM/dd')}" required />
                                     <div th:errors="*{dueDate}" style="color: red"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優先度</th>
                                 <td>
-                                    <select th:field="*{priorityId}" class="form-input" required >
+                                    <select th:field="*{priorityId}" required>
                                         <option value="">選択してください</option>
                                         <option value="1">Low</option>
                                         <option value="2">Medium</option>
@@ -89,32 +84,43 @@
                             <tr>
                                 <th>参考URL</th>
                                 <td>
-                                    <input type="url" th:field="*{url}" class="form-input" placeholder="参考URLを入力" />
+                                    <input type="url" th:field="*{url}" placeholder="参考URLを入力" />
                                     <div th:errors="*{url}" style="color: red"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>メモ</th>
                                 <td>
-                                    <textarea th:field="*{memo}" class="form-input" placeholder="メモを入力"></textarea>
+                                    <textarea th:field="*{memo}" placeholder="メモを入力" rows="5" cols="50"></textarea>
                                     <div th:errors="*{memo}" style="color: red"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>作成日</th>
                                 <td>
-                                    <input type="date" th:field="*{creationDate}" class="form-input" value="[[${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}]" required />
-                                    <div th:errors="*{creationDate}" style="color: red"></div>
-                                </td>
-                            </tr>                            
-                            <tr>
-                                <td colspan="2" style="text-align: center">
-                                    <button type="submit" class="btn btn-success">バケット作成</button>
-                                    <button type="reset" class="btn btn-secondary">リセット</button>
+                                    <input type="text" th:field="*{creationDate}" th:value="${#temporals.format(bucketForm.creationDate, 'yyyy/MM/dd')}" required readonly />
                                 </td>
                             </tr>
                         </table>
+                    
+                        <!-- 保存ボタン -->
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <input type="hidden" th:field="*{id}"/>
+                                <button type="submit">バケットを保存</button>
+                            </td>
+                        </tr>
                     </form>
+                    
+                    <!-- キャンセルボタンは別フォームで囲む -->
+                    <form action="javascript:history.back()" method="get">
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <button type="submit">キャンセル</button>
+                            </td>
+                        </tr>
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -122,8 +128,3 @@
     <div class="footer-container"></div>
 </body>
 </html>
-
-
-
-
-

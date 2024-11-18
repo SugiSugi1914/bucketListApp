@@ -39,7 +39,10 @@
                             </td>
                             <td th:text="${bucket.title}">BucketListのタイトル</td>
                             <td>
-                                <a th:href="@{/bucket/edit/{id}(id=${bucket.id})}" class="btn btn-primary">詳細・編集</a>
+                                <form th:action="@{/bucket/toEditing}" method="post">
+                                    <input type="hidden" name="bucketId" th:value="${bucket.id}"/>
+                                    <button type="submit" class="btn btn-primary">詳細・編集</button>
+                                </form>
                             </td>
                         </tr>
                     </table>

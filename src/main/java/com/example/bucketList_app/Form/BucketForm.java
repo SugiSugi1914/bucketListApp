@@ -6,17 +6,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 
 public class BucketForm {
 
-    // private Integer id;
+    private Integer id;
     @NotNull(message="タイトルを入力してください")
     private String title;
     private MultipartFile image;
     @NotNull(message="カテゴリーを入力してください")
     private Integer categoryId;
-    // private Integer userId;
+    private Integer userId;
     @Min(value = 0, message = "予算は0以上でなければなりません")
     private Integer budget;
     @NotNull(message="達成予定日を入力してください")
@@ -30,12 +29,12 @@ public class BucketForm {
     // private Boolean achievement;
     // private Boolean permission;
     
-    // public Integer getId() {
-    //     return id;
-    // }
-    // public void setId(Integer id) {
-    //     this.id = id;
-    // }
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -54,12 +53,12 @@ public class BucketForm {
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-    // public Integer getUserId() {
-    //     return userId;
-    // }
-    // public void setUserId(Integer userId) {
-    //     this.userId = userId;
-    // }
+    public Integer getUserId() {
+        return userId;
+    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
     public Integer getBudget() {
         return budget;
     }
@@ -108,11 +107,10 @@ public class BucketForm {
     // public void setPermission(Boolean permission) {
     //     this.permission = permission;
     // }
-
     @Override
     public String toString() {
-        return "BucketForm [title=" + title + ", image=" + image + ", categoryId=" + categoryId + ", budget=" + budget
-                + ", dueDate=" + dueDate + ", priorityId=" + priorityId + ", url=" + url + ", memo=" + memo
-                + ", creationDate=" + creationDate + "]";
+        return "BucketForm [id=" + id + ", title=" + title + ", image=" + image + ", categoryId=" + categoryId
+                + ", userId=" + userId + ", budget=" + budget + ", dueDate=" + dueDate + ", priorityId=" + priorityId
+                + ", url=" + url + ", memo=" + memo + ", creationDate=" + creationDate + "]";
     }
 }

@@ -1,6 +1,5 @@
 package com.example.bucketList_app.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +28,13 @@ public class BucketService {
 
     public void insert(Bucket bucket) {
         bucketRepository.insert(bucket);
+    }
+
+    public void update(Bucket bucket) {
+        bucketRepository.update(bucket);
+    }
+
+    public void delete(Integer id) {
+        bucketRepository.delete(id);
     }
 }

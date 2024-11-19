@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .clearAuthentication(true)
                         .invalidateHttpSession(true))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/timeLine", "/img/**", "/login", "/toRegister", "/register",
+                        .requestMatchers( "/img/**", "/login", "/toRegister", "/register",
                                 "/otherUsersBucket")
                         .permitAll()
                         .requestMatchers("/admin/**")

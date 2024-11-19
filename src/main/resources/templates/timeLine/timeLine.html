@@ -29,7 +29,14 @@
                             <div class="bucket-details">
                                 <p class="bucket-user-name" th:text="${bucket.user.name}">名前</p>
                                 <p class="bucket-title" th:text="${bucket.title}">タイトル</p>
-                            </div>
+
+                                <img th:src="@{/img/bucket/}+${bucket.image}" src="../../static/img/bucket/books.png" class="bucket-image">
+                                <p class="bucket-priority">優先度：<span th:text="${bucket.priority.priority}">Low</span></p>
+                                <form th:action="@{/timeLine/toAddition}" method="post">
+                                    <input type="hidden" name="id" th:value="${bucket.id}"/>
+                                    <button type="submit" class="btn btn-primary">Myバケットに追加</button>
+                                </form>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -38,28 +45,4 @@
     </div>
     <div class="footer-container"></div>
 </body>
-<!-- <body>
-    <div class="main">
-        <div class="header-container">
-            <div th:insert="~{nav-bar :: nav-bar}"></div>
-        </div>
-        <div class="main-container">
-            <div class="list-container">
-                <legend class="page-title">タイムライン</legend>
-                <div class="padding-container">
-                    <table class="form-table">
-                        <tr th:each="bucket : ${bucketList}">
-                            <img src="../static/img/user/icon_1.png" th:src="@{/img/user/}+${bucket.user.icon}" alt="">画像<br>
-                            <td th:text="${bucket.user.name}">名前</td>
-                            <br>
-                            <td th:text="${bucket.title}">タイトル</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-container"></div>
-</body> -->
-
 </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>バケット編集</title>
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
+    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header-container">
+            <div th:insert="~{nav-bar :: nav-bar}"></div>
+        </div>
+        <div class="main-container">
+            <div class="list-container">
+                <legend class="page-title">バケット編集</legend>
+                <div class="padding-container">
+                    <form th:action="@{/timeLine/addition}" method="POST" th:object="${bucketForm}" enctype="multipart/form-data">
+                        <table>
+                            <tr>
+                                <th>タイトル</th>
+                                <td>
+                                    <input type="text" th:field="*{title}" placeholder="タイトルを入力" size="40" required />
+                                    <div th:errors="*{title}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>イメージ画像</th>
+                                <td>
+                                    <input type="file" th:field="*{image}" accept="image/*" />
+                                    <div th:errors="*{image}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>カテゴリー</th>
+                                <td>
+                                    <select th:field="*{categoryId}" required>
+                                        <option value="">選択してください</option>
+                                        <option value="1">未分類</option>
+                                        <option value="2">旅行</option>
+                                        <option value="3">自己研鑽</option>
+                                        <option value="4">スポーツ</option>
+                                        <option value="5">音楽</option>
+                                        <option value="6">旅行</option>
+                                        <option value="7">食事</option>
+                                        <option value="8">健康・美容</option>
+                                        <option value="9">ビジネス</option>
+                                        <option value="10">家族・恋人</option>
+                                    </select>
+                                    <div th:errors="*{categoryId}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>予算</th>
+                                <td>
+                                    <input type="number" th:field="*{budget}" placeholder="予算を入力" min="0" step="1"/>
+                                    <div th:errors="*{budget}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>達成までの期限</th>
+                                <td>
+                                    <input type="date" th:field="*{dueDate}" th:value="${#temporals.format(bucketForm.creationDate, 'yyyy/MM/dd')}" required />
+                                    <div th:errors="*{dueDate}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>優先度</th>
+                                <td>
+                                    <select th:field="*{priorityId}" required>
+                                        <option value="">選択してください</option>
+                                        <option value="1">Low</option>
+                                        <option value="2">Medium</option>
+                                        <option value="3">High</option>
+                                        <option value="4">Critical</option>
+                                        <option value="5">Must</option>
+                                    </select>
+                                    <div th:errors="*{priorityId}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>参考URL</th>
+                                <td>
+                                    <input type="url" th:field="*{url}" placeholder="参考URLを入力" />
+                                    <div th:errors="*{url}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>メモ</th>
+                                <td>
+                                    <textarea th:field="*{memo}" placeholder="メモを入力" rows="5" cols="50"></textarea>
+                                    <div th:errors="*{memo}" style="color: red"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>作成日</th>
+                                <td>
+                                    <input type="date" th:field="*{creationDate}" th:value="${#temporals.format(bucketForm.creationDate, 'yyyy/MM/dd')}" required />
+                                    <div th:errors="*{creationDate}" style="color: red"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    
+                        <!-- 保存ボタン -->
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <input type="hidden" th:field="*{id}"/>
+                                <button type="submit">Myバケットに保存</button>
+                            </td>
+                        </tr>
+                    </form>
+                    
+                    <!-- キャンセルボタンは別フォームで囲む -->
+                    <form action="javascript:history.back()" method="get">
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <button type="submit">キャンセル</button>
+                            </td>
+                        </tr>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-container"></div>
+</body>
+</html>

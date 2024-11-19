@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定</title>
+    <link rel="stylesheet" href="styles.css"> <!-- CSSファイルへのリンク -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding-left: 20px;
+            display: none; /* サブメニューを最初は非表示に */
+        }
+
+        .sidebar ul li.open ul {
+            display: block; /* 「このアカウントについて」を押すとサブメニューが表示される */
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー部分を追加 -->
+    <div class="header-container">
+        <div th:insert="~{nav-bar :: nav-bar}"></div>
+    </div>
+
+    <!-- サイドバー -->
+    <div class="sidebar">
+        <h2>設定とアクティビティ</h2>
+        <ul>
+            <!-- 「このアカウントについて」を押すとサブメニューが表示される -->
+            <li>
+                <a href="#" onclick="toggleSubMenu(this); return false;">このアカウントについて</a>
+                <ul>
+                    <li><a href="#" onclick="showSection('user-info-update'); return false;">- ユーザー情報の更新</a></li>
+                </ul>
+            </li>
+            <li><a href="#" onclick="showSection('privacy')">アカウントの追加</a></li>
+            <li><a href="#" onclick="showSection('notification')">お知らせ</a></li>
+        </ul>
+    </div>
+
+    <!-- コンテンツ表示部分 -->
+    <div class="content">
+        <div id="account-center" class="section active">
+            <h3>このアカウントについて</h3>
+            <p>アカウントの管理情報を編集できます。</p>
+        </div>
+        <div id="user-info-update" class="section">
+            <h3>ユーザー情報の更新</h3>
+            <p>ここでユーザー情報を更新できます。</p>
+        </div>
+        <div id="privacy" class="section">
+            <h3>アカウントの追加</h3>
+            <p>アカウントを追加できます。</p>
+        </div>
+        <div id="notification" class="section">
+            <h3>お知らせ</h3>
+            <p>通知設定を管理できます。</p>
+        </div>
+    </div>
+
+    <script>
+        // セクションの表示切替関数
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // サブメニューの表示切替関数
+        function toggleSubMenu(element) {
+            var parentLi = element.parentElement;
+            if (parentLi.classList.contains('open')) {
+                parentLi.classList.remove('open');
+            } else {
+                parentLi.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>

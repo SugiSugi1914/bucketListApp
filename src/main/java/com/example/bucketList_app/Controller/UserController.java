@@ -16,7 +16,7 @@ import com.example.bucketList_app.common.LoginUserDetails;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class UserController {
     @Autowired
     private HttpSession session;
@@ -31,21 +31,12 @@ public class UserController {
         return "user/login";
     }
 
-    @RequestMapping("/myBucket")
-    public String myBucket(@AuthenticationPrincipal LoginUserDetails loginUserDetails,
-            Model model) {
-        session.setAttribute("name", loginUserDetails.getUser().getEmail());
-        if (loginUserDetails.getAuthorities() != null) {
-            for (GrantedAuthority authority : loginUserDetails.getAuthorities()) {
-                if (authority != null) {
-                    if (authority.getAuthority().equals("admin")) {
-                        return "redirect:/admin/top";
-                    } else {
-                        return "bucket/myBucket";
-                    }
-                }
-            }
-        }
-        return "redirect:/toLogin";
+    @RequestMapping("/toOthers")
+    public String toMyPage() {
+        return "user/others";
     }
+
+    
+
+    
 }

@@ -19,7 +19,6 @@ import com.example.bucketList_app.Form.BucketForm;
 import com.example.bucketList_app.Service.BucketService;
 import com.example.bucketList_app.Service.CategoryService;
 import com.example.bucketList_app.Service.PriorityService;
-import com.example.bucketList_app.Service.UserService;
 import com.example.bucketList_app.common.LoginUserDetails;
 
 
@@ -33,8 +32,6 @@ public class BucketController {
     private CategoryService categoryService;
     @Autowired
     private PriorityService priorityService;
-    @Autowired
-    private UserService userService;
 
     @ModelAttribute
     public BucketForm setUpBucketForm() {

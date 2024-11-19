@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
@@ -19,7 +19,7 @@
                 <span sec:authorize="authenticated">
                 <li><a id="register" th:href="@{/timeLine/toTimeLine}" href=""><i class="fa fa-home"></i>タイムライン&nbsp;</a></li>
                 <li><a id="register" th:href="@{/bucket/toMyBucket}" href=""><i class="fa fa-check-square"></i> Myバケット&nbsp;</a></li>
-                <li><a id="register" th:href="@{/user/toMyPage}" href=""><i class="fa fa-user"></i>プロフィール&nbsp;</a></li>
+                <li><a id="register" th:href="@{/toOthers}" href=""><i class="fa fa-user"></i>その他&nbsp;</a></li>
                 </span>
                 <span sec:authorize="isAnonymous()">
                     <li><a id="register" th:href="@{/user/toRegister}" href="./register/inputInfo.html"><i class="fa fa-drivers-license-o"></i>ユーザー登録&nbsp;</a> </li>

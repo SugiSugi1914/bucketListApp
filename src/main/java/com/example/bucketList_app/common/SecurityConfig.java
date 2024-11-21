@@ -12,38 +12,39 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .formLogin(login -> login
-                        .loginPage("/toLogin")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/bucket/toMyBucket")
-                        .failureUrl("/toLogin?error")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/toLogin")
-                        .clearAuthentication(true)
-                        .invalidateHttpSession(true))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/timeLine", "/img/**", "/login", "/toRegister", "/register",
-                                "/otherUsersBucket")
-                        .permitAll()
-                        .requestMatchers("/admin/**")
-                        .hasRole("admin")
-                        .requestMatchers("/user/**")
-                        .hasAnyRole("user", "admin")
-                        .anyRequest()
-                        .authenticated());
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .formLogin(login -> login
+                                                .loginPage("/toLogin")
+                                                .loginProcessingUrl("/login")
+                                                .defaultSuccessUrl("/bucket/toMyBucket")
+                                                .failureUrl("/toLogin?error")
+                                                .usernameParameter("email")
+                                                .passwordParameter("password")
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessUrl("/user/toLogin")
+                                                .clearAuthentication(true)
+                                                .invalidateHttpSession(true))
+                                .authorizeHttpRequests(authorize -> authorize
+                                                .requestMatchers("/timeLine", "/img/**", "/login", "/toRegister",
+                                                                "/register",
+                                                                "/otherUsersBucket")
+                                                .permitAll()
+                                                .requestMatchers("/admin/**")
+                                                .hasAuthority("Admin")
+                                                .requestMatchers("/user/**")
+                                                .hasAnyAuthority("User", "Admin")
+                                                .anyRequest()
+                                                .authenticated());
 
-        return http.build();
-    }
+                return http.build();
+        }
 }

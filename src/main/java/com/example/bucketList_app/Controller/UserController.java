@@ -38,7 +38,7 @@ public class UserController {
         if (loginUserDetails.getAuthorities() != null) {
             for (GrantedAuthority authority : loginUserDetails.getAuthorities()) {
                 if (authority != null) {
-                    if (authority.getAuthority().equals("admin")) {
+                    if (authority.getAuthority().equals("Admin")) {
                         return "redirect:/admin/top";
                     } else {
                         return "bucket/myBucket";

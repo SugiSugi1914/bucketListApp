@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bucketList_app.Domain.User;
 
@@ -68,10 +69,32 @@ public class UserRepository {
         template.update(sql, params);
     }
 
-    public void delete(Integer id) {
-        String sql = "DELETE FROM users WHERE id=:id";
-        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-        template.update(sql, param);
+    // public void delete(Integer id) {
+    // String sql = "DELETE FROM users WHERE id=:id";
+    // SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+    // template.update(sql, param);
+    // }
+    @Transactional
+    public void delete(Integer userId) {
+        // 1. reportテーブルから関連レコードを削除
+        String deleteReportsSql = """
+                    DELETE FROM report
+                    WHERE report_bucket_id IN (
+                        SELECT id FROM bucket WHERE user_id = :userId
+                    )
+                """;
+        SqlParameterSource reportParam = new MapSqlParameterSource().addValue("userId", userId);
+        template.update(deleteReportsSql, reportParam);
+
+        // 2. bucketテーブルから関連レコードを削除
+        String deleteBucketsSql = "DELETE FROM bucket WHERE user_id = :userId";
+        SqlParameterSource bucketParam = new MapSqlParameterSource().addValue("userId", userId);
+        template.update(deleteBucketsSql, bucketParam);
+
+        // 3. usersテーブルからユーザーを削除
+        String deleteUserSql = "DELETE FROM users WHERE id = :id";
+        SqlParameterSource userParam = new MapSqlParameterSource().addValue("id", userId);
+        template.update(deleteUserSql, userParam);
     }
 
     public void update(User user) {

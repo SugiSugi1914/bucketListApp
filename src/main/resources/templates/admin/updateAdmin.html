@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ユーザー情報編集</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}"
+          >管理者ダッシュボード</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/dashboard}">ホーム</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toRegister}">管理者追加</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toReport}"
+                >報告されたバケット</a
+              >
+            </li>
+          </ul>
+          <form
+            th:action="@{/logout}"
+            method="post"
+            class="ms-auto"
+            style="display: inline"
+          >
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <button
+              type="submit"
+              class="bg-body-secondary"
+              onclick="return confirm('本当にログアウトしますか？')"
+            >
+              ログアウト
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ユーザー情報編集フォーム -->
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">ユーザー情報編集</h1>
+
+      <!-- エラーメッセージ -->
+      <div th:if="${emailError}" class="alert alert-danger text-center">
+        <p th:text="${emailError}">
+          このメールアドレスはすでに使用されています。
+        </p>
+      </div>
+
+      <form
+        th:action="@{/admin/updateAdmin}"
+        th:object="${updateAdminForm}"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
+        <input type="hidden" th:field="*{userId}" />
+
+        <div class="mb-3">
+          <label for="name" class="form-label">名前</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            th:field="*{name}"
+            placeholder="名前を入力"
+            required
+          />
+          <div class="invalid-feedback">名前を入力してください。</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">メールアドレス</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            th:field="*{email}"
+            placeholder="メールアドレスを入力"
+            required
+          />
+          <div class="invalid-feedback">
+            有効なメールアドレスを入力してください。
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="role" class="form-label">役割</label>
+          <select class="form-select" id="role" th:field="*{role}" required>
+            <option
+              value="ROLE_USER"
+              th:selected="${updateAdminForm.role == 'ROLE_USER'}"
+            >
+              ユーザー
+            </option>
+            <option
+              value="A"
+              th:selected="${updateAdminForm.role == 'ROLE_ADMIN'}"
+            >
+              管理者
+            </option>
+          </select>
+          <div class="invalid-feedback">役割を選択してください。</div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">更新</button>
+          <a th:href="@{/admin/dashboard}" class="btn btn-secondary"
+            >キャンセル</a
+          >
+        </div>
+      </form>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+      &copy; 2024 バケットリストアプリ 管理者ダッシュボード
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

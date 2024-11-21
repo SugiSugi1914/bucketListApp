@@ -108,11 +108,118 @@
         </div>
         <div id="user-info-update" class="section">
             <h3>ユーザー情報の更新</h3>
-            <p>ここでユーザー情報を更新できます。</p>
+            <form th:action="@{/updateUser}" method="POST" th:object="${updateUserForm}" enctype="multipart/form-data">
+                <table class="form-table">
+                    <tr>
+                        <th>名前</th>
+                        <td>
+                            <input type="text" th:field="*{name}" class="form-input" placeholder="Yamada Taro" />
+                            <div th:errors="*{name}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>アイコン</th>
+                        <td>
+                            <input type="file" th:field="*{icon}" accept="image/*" class="form-input" />
+                            <div th:errors="*{icon}" style="color: red"></div>
+                        </td>
+                    </tr>     
+                    <tr>
+                        <th>年齢</th>
+                        <td>
+                            <input type="number" th:field="*{age}" accept="image/*" class="form-input" />
+                            <div th:errors="*{age}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td>
+                            <input type="text" th:field="*{email}" class="form-input" placeholder="example@example.com" />
+                            <div th:errors="*{email}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性別</th>
+                        <td>
+                            <select th:field="*{gender}" class="form-input" >
+                                <option value="">選択してください</option>
+                                <option value="男性">男性</option>
+                                <option value="女性">女性</option>
+                                <option value="その他">その他</option>
+                            </select>
+                            <div th:errors="*{gender}" style="color: red"></div>
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{password}">
+                            <button type="submit" class="btn btn-success">更新</button>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>パスワードの変更は<a th:href="@{/updatePassword}">こちら</a>から</td>
+                    </tr>
+                </table>
+            </form>
         </div>
         <div id="privacy" class="section">
-            <h3>アカウントの追加</h3>
-            <p>アカウントを追加できます。</p>
+            <h3>ユーザーの新規追加</h3>
+            <form th:action="@{/addNewUser}" method="POST" th:object="${userForm}" enctype="multipart/form-data">
+                <table class="form-table">
+                    <tr>
+                        <th>名前</th>
+                        <td>
+                            <input type="text" th:field="*{name}" class="form-input" placeholder="Yamada Taro" />
+                            <div th:errors="*{name}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>アイコン</th>
+                        <td>
+                            <input type="file" th:field="*{icon}" accept="image/*" class="form-input" />
+                        </td>
+                    </tr>     
+                    <tr>
+                        <th>年齢</th>
+                        <td>
+                            <input type="number" th:field="*{age}" accept="image/*" class="form-input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td>
+                            <input type="text" th:field="*{email}" class="form-input" placeholder="example@example.com" />
+                            <div th:errors="*{email}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>パスワード</th>
+                        <td>
+                            <input type="text" th:field="*{password}" class="form-input" />
+                            <div th:errors="*{password}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性別</th>
+                        <td>
+                            <select th:field="*{gender}" class="form-input" >
+                                <option value="">選択してください</option>
+                                <option value="男性">男性</option>
+                                <option value="女性">女性</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <button type="submit" class="btn btn-success">登録</button>
+                            <button type="reset" class="btn btn-secondary">リセット</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
         <div id="notification" class="section">
             <h3>お知らせ</h3>
@@ -142,3 +249,6 @@
     </script>
 </body>
 </html>
+
+
+

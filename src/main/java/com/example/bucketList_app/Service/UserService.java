@@ -3,10 +3,12 @@ package com.example.bucketList_app.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.bucketList_app.Domain.User;
 import com.example.bucketList_app.Repository.UserRepository;
+import com.example.bucketList_app.common.LoginUserDetails;
 
 @Service
 public class UserService {
@@ -31,6 +33,17 @@ public class UserService {
         System.out.println("Encoded password:" + encodedPassword);
         user.setPassword(encodedPassword);
         userRepository.insert(user);
+    }
+
+    public void update(User user, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        if (!user.getPassword().equals(user.getPassword())) {
+            // パスワードが変更されている場合はエンコードを行う
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            // パスワードが変更されていない場合は既存のエンコード済みパスワードをそのまま使用する
+            user.setPassword(user.getPassword());
+        }
+        userRepository.update(user);
     }
 
 }

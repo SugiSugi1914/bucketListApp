@@ -2,13 +2,17 @@ package com.example.bucketList_app.Form;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UserForm {
+import jakarta.validation.constraints.NotBlank;
 
+public class UserForm {
     private Integer id;
+    @NotBlank(message="名前を入力してください")
     private String name;
     private MultipartFile icon;
     private Integer age;
+    @NotBlank(message="メールアドレスの入力は必須です")
     private String email;
+    @NotBlank(message="パスワードの入力は必須です")
     private String password;
     private String gender;
     private String role;

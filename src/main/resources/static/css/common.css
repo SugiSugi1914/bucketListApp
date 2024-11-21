@@ -21,6 +21,12 @@
     margin-bottom: 5px;  /* アイコンと名前の間に少しスペースを追加 */
 }
 
+.bucket-image {
+    width: 200px;
+    height: 200px;    /* アイコンの高さ */
+    object-fit: cover;  /* 画像の歪みを防ぐ */
+}
+
 .bucket-user-name {
     font-size: 16px; /* 名前のフォントサイズ */
     font-weight: bold; /* 名前を太字に */

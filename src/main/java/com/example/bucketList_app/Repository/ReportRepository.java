@@ -34,7 +34,7 @@ public class ReportRepository {
         bucket.setUrl(rs.getString("b_url"));
         bucket.setMemo(rs.getString("b_memo"));
         bucket.setCreationDate(rs.getDate("b_creationDate").toLocalDate());
-        bucket.setAchievement(rs.getBoolean("b_achevement"));
+        bucket.setAchievement(rs.getBoolean("b_achievement"));
         bucket.setPermission(rs.getBoolean("b_permission"));
         report.setReportBucket(bucket);
 
@@ -78,26 +78,28 @@ public class ReportRepository {
                     b.url AS b_url,
                     b.memo AS b_memo,
                     b.creation_date AS b_creationDate,
-                    b.achevement AS b_achevement,
+                    b.achievement AS b_achievement,
                     b.permission AS b_permission,
 
-                    ur.id AS u_id,
-                    ur.name AS u_name,
-                    ur.age AS u_age,
-                    ur.email AS u_email,
-                    ur.password AS u_password,
-                    ur.gender AS u_gender,
-                    ur.role AS u_role,
-                    ur.icon AS u_icon,
+                    ur.id AS ur_id,
+                    ur.name AS ur_name,
+                    ur.age AS ur_age,
+                    ur.email AS ur_email,
+                    ur.password AS ur_password,
+                    ur.gender AS ur_gender,
+                    ur.role AS ur_role,
+                    ur.icon AS ur_icon,
 
-                    us.id AS u_id,
-                    us.name AS u_name,
-                    us.age AS u_age,
-                    us.email AS u_email,
-                    us.password AS u_password,
-                    us.gender AS u_gender,
-                    us.role AS u_role,
-                    us.icon AS u_icon,
+                    us.id AS us_id,
+                    us.name AS us_name,
+                    us.age AS us_age,
+                    us.email AS us_email,
+                    us.password AS us_password,
+                    us.gender AS us_gender,
+                    us.role AS us_role,
+                    us.icon AS us_icon
+
+
 
                 FROM report AS r
                 JOIN bucket AS b
@@ -126,26 +128,28 @@ public class ReportRepository {
                     b.url AS b_url,
                     b.memo AS b_memo,
                     b.creation_date AS b_creationDate,
-                    b.achevement AS b_achevement,
+                    b.achievement AS b_achievement,
                     b.permission AS b_permission,
 
-                    ur.id AS u_id,
-                    ur.name AS u_name,
-                    ur.age AS u_age,
-                    ur.email AS u_email,
-                    ur.password AS u_password,
-                    ur.gender AS u_gender,
-                    ur.role AS u_role,
-                    ur.icon AS u_icon,
+                    ur.id AS ur_id,
+                    ur.name AS ur_name,
+                    ur.age AS ur_age,
+                    ur.email AS ur_email,
+                    ur.password AS ur_password,
+                    ur.gender AS ur_gender,
+                    ur.role AS ur_role,
+                    ur.icon AS ur_icon,
 
-                    us.id AS u_id,
-                    us.name AS u_name,
-                    us.age AS u_age,
-                    us.email AS u_email,
-                    us.password AS u_password,
-                    us.gender AS u_gender,
-                    us.role AS u_role,
-                    us.icon AS u_icon,
+                    us.id AS us_id,
+                    us.name AS us_name,
+                    us.age AS us_age,
+                    us.email AS us_email,
+                    us.password AS us_password,
+                    us.gender AS us_gender,
+                    us.role AS us_role,
+                    us.icon AS us_icon
+
+
 
                 FROM report AS r
                 JOIN bucket AS b
@@ -154,7 +158,7 @@ public class ReportRepository {
                 ON r.report_user_id = ur.id
                 JOIN users AS us
                 ON r.report_user_id = us.id
-                WHERE id=:id
+                WHERE r.id=:id
                 """;
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
         Report report = template.queryForObject(sql, param, REPORT_ROW_MAPPER);

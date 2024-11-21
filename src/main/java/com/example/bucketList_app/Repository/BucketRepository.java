@@ -228,7 +228,7 @@ public class BucketRepository {
         return bucketList;
     }
 
-    //permissionがtrueのもの全て取得
+    // permissionがtrueのもの全て取得
     public List<Bucket> findAllPermission() {
         String sql = """
                     SELECT
@@ -535,21 +535,21 @@ public class BucketRepository {
                                 VALUES(:title, :image, :categoryId, :userId, :budget, :dueDate, :priorityId, :url, :memo, :creationDate, false,false)
                 """;
         SqlParameterSource param = new MapSqlParameterSource()
-        .addValue("title", bucket.getTitle())
-        .addValue("image", bucket.getImage())
-        .addValue("categoryId", bucket.getCategory().getId())
-        .addValue("userId", bucket.getUser().getId()) 
-        .addValue("budget", bucket.getBudget())
-        .addValue("dueDate", bucket.getDueDate())
-        .addValue("priorityId", bucket.getPriority().getId())
-        .addValue("url", bucket.getUrl())
-        .addValue("memo", bucket.getMemo())
-        .addValue("creationDate", bucket.getCreationDate());
+                .addValue("title", bucket.getTitle())
+                .addValue("image", bucket.getImage())
+                .addValue("categoryId", bucket.getCategory().getId())
+                .addValue("userId", bucket.getUser().getId())
+                .addValue("budget", bucket.getBudget())
+                .addValue("dueDate", bucket.getDueDate())
+                .addValue("priorityId", bucket.getPriority().getId())
+                .addValue("url", bucket.getUrl())
+                .addValue("memo", bucket.getMemo())
+                .addValue("creationDate", bucket.getCreationDate());
 
         template.update(sql, param);
     }
 
-    //SQL文変更のNamedParameterを変更する必要あり
+    // SQL文変更のNamedParameterを変更する必要あり
     public void update(Bucket bucket) {
         String sql = """
                     UPDATE bucket
@@ -557,23 +557,27 @@ public class BucketRepository {
                     WHERE id=:id
                 """;
         SqlParameterSource param = new MapSqlParameterSource()
-        .addValue("id", bucket.getId())
-        .addValue("title", bucket.getTitle())
-        .addValue("image", bucket.getImage())
-        .addValue("categoryId", bucket.getCategory().getId())
-        .addValue("userId", bucket.getUser().getId()) 
-        .addValue("budget", bucket.getBudget())
-        .addValue("dueDate", bucket.getDueDate())
-        .addValue("priorityId", bucket.getPriority().getId())
-        .addValue("url", bucket.getUrl())
-        .addValue("memo", bucket.getMemo())
-        .addValue("creationDate", bucket.getCreationDate());
+                .addValue("id", bucket.getId())
+                .addValue("title", bucket.getTitle())
+                .addValue("image", bucket.getImage())
+                .addValue("categoryId", bucket.getCategory().getId())
+                .addValue("userId", bucket.getUser().getId())
+                .addValue("budget", bucket.getBudget())
+                .addValue("dueDate", bucket.getDueDate())
+                .addValue("priorityId", bucket.getPriority().getId())
+                .addValue("url", bucket.getUrl())
+                .addValue("memo", bucket.getMemo())
+                .addValue("creationDate", bucket.getCreationDate());
         template.update(sql, param);
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM bucket WHERE id = :id";
+        String deleteReportsSql = "DELETE FROM report WHERE report_bucket_id = :id";
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-        template.update(sql, param);
+        template.update(deleteReportsSql, param);
+
+        // 次に bucket テーブルのデータを削除
+        String deleteBucketSql = "DELETE FROM bucket WHERE id = :id";
+        template.update(deleteBucketSql, param);
     }
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>詳細ページ</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}"
+          >管理者ダッシュボード</a
+        >
+      </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">バケットリスト詳細</h1>
+      <div class="card">
+        <div class="card-header">
+          <h2 th:text="${report.reportBucket.title}">タイトル</h2>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <img
+              th:src="${report.reportBucket.image}"
+              alt="画像"
+              class="img-fluid"
+            />
+          </div>
+          <p>
+            <strong>ユーザー:</strong>
+            <span th:text="${report.suspicionUser.name}">ユーザー名</span>
+          </p>
+          <p>
+            <strong>予算:</strong>
+            <span th:text="${report.reportBucket.budget}">10000</span>円
+          </p>
+          <p>
+            <strong>期日:</strong>
+            <span th:text="${report.reportBucket.dueDate}">2024-12-31</span>
+          </p>
+          <p>
+            <strong>URL:</strong>
+            <a
+              th:href="${report.reportBucket.url}"
+              th:text="${report.reportBucket.url}"
+              >リンク</a
+            >
+          </p>
+          <p>
+            <strong>メモ:</strong>
+            <span th:text="${report.reportBucket.memo}">詳細メモ</span>
+          </p>
+          <p>
+            <strong>作成日:</strong>
+            <span th:text="${report.reportBucket.creationDate}"
+              >2024-11-01</span
+            >
+          </p>
+          <p>
+            <strong>達成:</strong>
+            <span
+              th:text="${report.reportBucket.achievement ? '達成済み' : '未達成'}"
+            ></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 戻るボタン -->
+      <div class="text-center mt-4">
+        <a class="btn btn-secondary" th:href="@{/admin/toReport}">一覧に戻る</a>
+      </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+      &copy; 2024 バケットリストアプリ
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>削除確認</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}"
+          >管理者ダッシュボード</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/dashboard}">ホーム</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toRegister}">管理者追加</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toReport}"
+                >報告されたバケット</a
+              >
+            </li>
+          </ul>
+          <form
+            th:action="@{/logout}"
+            method="post"
+            class="ms-auto"
+            style="display: inline"
+          >
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <button
+              type="submit"
+              class="bg-body-secondary"
+              onclick="return confirm('本当にログアウトしますか？')"
+            >
+              ログアウト
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 削除確認画面 -->
+    <div class="container mt-5">
+      <h2 class="text-center">報告されたユーザー一覧</h2>
+
+      <table class="table table-striped table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>名前</th>
+            <th>メール</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user, iterStat : ${suspicionUsers}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${user.name}">ユーザー名</td>
+            <td th:text="${user.email}">example@example.com</td>
+            <td>
+              <form th:action="@{/admin/deleteReportUser}" method="post">
+                <input type="hidden" name="userId" th:value="${user.id}" />
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-sm"
+                  onclick="return confirm('本当に削除しますか？')"
+                >
+                  アカウント削除
+                </button>
+              </form>
+            </td>
+          </tr>
+          <tr th:if="${suspicionUsers.isEmpty()}">
+            <td colspan="4" class="text-center text-muted">
+              <strong>報告されたユーザーはありません。</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+      &copy; 2024 バケットリストアプリ 管理者ダッシュボード
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

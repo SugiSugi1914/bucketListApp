@@ -88,7 +88,7 @@ INSERT INTO priority (priority) VALUES
 
 -- Insert into "users" table
 INSERT INTO users (name, icon, age, email, password, gender, role) VALUES
-('John Doe', 'icon_1.png', 28, 'john.doe@example.com', '$2a$10$L2hFnwOVwTdE.9lMp5C4b.RVDYXU5kkdqfWJqHMviNtPLqB4iPjO.', 'Male', 'User'),
+('John Doe', 'icon_1.png', 28, 'john.doe@example.com', '$2a$10$L2hFnwOVwTdE.9lMp5C4b.RVDYXU5kkdqfWJqHMviNtPLqB4iPjO.', 'Male', 'Admin'),
 ('Jane Smith', 'icon_2.png', 34, 'jane.smith@example.com', 'password456', 'Female', 'Admin'),
 ('Mike Johnson', 'icon_3.png', 45, 'mike.johnson@example.com', 'password789', 'Male', 'User'),
 ('Emily Davis', 'icon_4.png', 22, 'emily.davis@example.com', 'password321', 'Female', 'User'),

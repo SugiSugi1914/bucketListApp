@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>設定</title>
     <link rel="stylesheet" href="styles.css"> <!-- CSSファイルへのリンク -->
+    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -108,7 +112,7 @@
         </div>
         <div id="user-info-update" class="section">
             <h3>ユーザー情報の更新</h3>
-            <form th:action="@{/updateUser}" method="POST" th:object="${updateUserForm}" enctype="multipart/form-data">
+            <form th:action="@{/user/updateUser}" method="POST" th:object="${updateUserForm}" enctype="multipart/form-data">
                 <table class="form-table">
                     <tr>
                         <th>名前</th>
@@ -128,7 +132,6 @@
                         <th>年齢</th>
                         <td>
                             <input type="number" th:field="*{age}" accept="image/*" class="form-input" />
-                            <div th:errors="*{age}" style="color: red"></div>
                         </td>
                     </tr>
                     <tr>
@@ -147,7 +150,6 @@
                                 <option value="女性">女性</option>
                                 <option value="その他">その他</option>
                             </select>
-                            <div th:errors="*{gender}" style="color: red"></div>
                         </td>
                     </tr>                        
                     <tr>
@@ -166,7 +168,7 @@
         </div>
         <div id="privacy" class="section">
             <h3>ユーザーの新規追加</h3>
-            <form th:action="@{/addNewUser}" method="POST" th:object="${userForm}" enctype="multipart/form-data">
+            <form th:action="@{/user/addNewUser}" method="POST" th:object="${userForm}" enctype="multipart/form-data">
                 <table class="form-table">
                     <tr>
                         <th>名前</th>

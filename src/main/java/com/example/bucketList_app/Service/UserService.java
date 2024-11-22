@@ -35,7 +35,7 @@ public class UserService {
         userRepository.insert(user);
     }
 
-    public void update(User user, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void update(User user) {
         if (!user.getPassword().equals(user.getPassword())) {
             // パスワードが変更されている場合はエンコードを行う
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -45,6 +45,11 @@ public class UserService {
         }
         userRepository.update(user);
     }
+
+    public void updateExistEmail(User user) {
+        userRepository.updateExistEmail(user);
+    }
+
 
     public void delete(Integer id) {
         userRepository.delete(id);

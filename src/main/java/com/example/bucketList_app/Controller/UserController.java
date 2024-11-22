@@ -1,6 +1,9 @@
 package com.example.bucketList_app.Controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,9 +14,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.bucketList_app.Domain.User;
 import com.example.bucketList_app.Form.LoginForm;
+import com.example.bucketList_app.Form.UpdateUserForm;
 import com.example.bucketList_app.Form.UserForm;
 import com.example.bucketList_app.Service.UserService;
 import com.example.bucketList_app.common.LoginUserDetails;
@@ -21,7 +26,7 @@ import com.example.bucketList_app.common.LoginUserDetails;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private HttpSession session;
@@ -31,6 +36,10 @@ public class UserController {
     @ModelAttribute
     public UserForm setUpUserForm() {
         return new UserForm();
+    }
+    @ModelAttribute
+    public UpdateUserForm setUpUpdateUserForm() {
+        return new UpdateUserForm();
     }
 
     @RequestMapping("/toLogin")
@@ -46,28 +55,43 @@ public class UserController {
         User userInfo = userService.findById(loginUserDetails.getUser().getId()); 
         UserForm form = new UserForm();
         BeanUtils.copyProperties(userInfo, form);
+        // if(userInfo.getIcon() != null) {
+        //     String iconPath = "src/main/resources/static/img/user/" + userInfo.getIcon();
+        //     File file = new File(iconPath);
+        //     FileInputStream input = new FileInputStream(file);
+        //     MockMultipartFile は開発用のもので、MultipartFile を直接作成する代替手段がないため、この方法が実質的に必要となる
+        //     MultipartFile icon = new MultipartFile(input);
+        //     form.setIcon(icon);
+        // }
         model.addAttribute("updateUserForm", form);
         return "user/others";
     }
 
     @RequestMapping("/updateUser")//hiddenでパスワード送っているのはセキュリティ的に良くない（開発者ツールで確認できるため）
-    public String updateUser(UserForm form, Integer id, String password, @AuthenticationPrincipal LoginUserDetails loginUserDetails, Model model) {
-        // if(result.hasErrors()) {
-        //     return "user/others";
-        // }
+    public String updateUser(@Validated UpdateUserForm updateForm, BindingResult result, Integer id, String password, @AuthenticationPrincipal LoginUserDetails loginUserDetails, Model model) {
+        if(result.hasErrors()) {
+            User userInfo = userService.findById(loginUserDetails.getUser().getId()); 
+            UserForm form = new UserForm();
+            BeanUtils.copyProperties(userInfo, form);
+            model.addAttribute("updateUserForm", form);    
+            return "user/others";
+        }
         User user = new User();
-        BeanUtils.copyProperties(form, user);
-        if(form.getIcon() != null) {
-            String icon = form.getIcon().getOriginalFilename();
+        BeanUtils.copyProperties(updateForm, user);
+        if(updateForm.getIcon() != null) {
+            String icon = updateForm.getIcon().getOriginalFilename();
             user.setIcon(icon);
         }
         user.setId(id);
         user.setPassword(password);
         String role = "User";
         user.setRole(role);
-        // System.out.println("結果!!!!!!!!!!!!!!!!" + form.toString());
-        userService.insert(user);
-        return "user/login";
+        if(loginUserDetails.getUser().getEmail().equals(updateForm.getEmail())) {
+            userService.updateExistEmail(user);
+        }else {
+            userService.update(user);
+        }
+        return "redirect:/user/toLogin";
     }
 
     @RequestMapping("/addNewUser")

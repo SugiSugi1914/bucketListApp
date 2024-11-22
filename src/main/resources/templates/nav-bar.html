@@ -18,31 +18,28 @@
       </div>
       <div>
         <ul>
-          <span sec:authorize="hasRole('Admin')">
+          <span sec:authorize="hasAuthority('Admin')">
             <li>
-              <a
-                id="admin-info"
-                th:href="@{/admin/toDashboard}"
-                href="./admin/dashboard.html"
-                >管理者機能&nbsp;<i class="fa fa-crown"></i>
+              <a id="admin-info" th:href="@{/admin/dashboard}" href="./admin/dashboard.html"
+                ><i class="fa fa-crown"></i>管理者機能&nbsp;
               </a>
             </li>
           </span>
           <span sec:authorize="authenticated">
             <li>
-              <a id="register" th:href="@{/user/toMyPage}" href=""
+              <a id="register" th:href="@{/timeLine/toTimeLine}" href=""
                 ><i class="fa fa-home"></i>タイムライン&nbsp;</a
               >
             </li>
             <li>
-              <a id="register" th:href="@{/user/toMyPage}" href=""
+              <a id="register" th:href="@{/bucket/toMyBucket}" href=""
                 ><i class="fa fa-check-square"></i> Myバケット&nbsp;</a
               >
             </li>
             <li>
-              <a id="register" th:href="@{/user/toMyPage}" href=""
-                ><i class="fa fa-user"></i>プロフィール&nbsp;</a
-              >
+              <a id="register" th:href="@{/user/toOthers}" href="">
+                <i class="fa fa-cog"></i> 設定&nbsp;
+              </a>
             </li>
           </span>
           <span sec:authorize="isAnonymous()">

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定</title>
+    <link rel="stylesheet" href="styles.css"> <!-- CSSファイルへのリンク -->
+    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding-left: 20px;
+            display: none; /* サブメニューを最初は非表示に */
+        }
+
+        .sidebar ul li.open ul {
+            display: block; /* 「このアカウントについて」を押すとサブメニューが表示される */
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー部分を追加 -->
+    <div class="header-container">
+        <div th:insert="~{nav-bar :: nav-bar}"></div>
+    </div>
+
+    <!-- サイドバー -->
+    <div class="sidebar">
+        <h2>設定とアクティビティ</h2>
+        <ul>
+            <!-- 「このアカウントについて」を押すとサブメニューが表示される -->
+            <li>
+                <a href="#" onclick="toggleSubMenu(this); return false;">このアカウントについて</a>
+                <ul>
+                    <li><a href="#" onclick="showSection('user-info-update'); return false;">- ユーザー情報の更新</a></li>
+                </ul>
+            </li>
+            <li><a href="#" onclick="showSection('privacy')">アカウントの追加</a></li>
+            <li><a href="#" onclick="showSection('notification')">お知らせ</a></li>
+        </ul>
+    </div>
+
+    <!-- コンテンツ表示部分 -->
+    <div class="content">
+        <div id="account-center" class="section active">
+            <h3>このアカウントについて</h3>
+            <p>アカウントの管理情報を編集できます。</p>
+        </div>
+        <div id="user-info-update" class="section">
+            <h3>ユーザー情報の更新</h3>
+            <form th:action="@{/user/updateUser}" method="POST" th:object="${updateUserForm}" enctype="multipart/form-data">
+                <table class="form-table">
+                    <tr>
+                        <th>名前</th>
+                        <td>
+                            <input type="text" th:field="*{name}" class="form-input" placeholder="Yamada Taro" />
+                            <div th:errors="*{name}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>アイコン</th>
+                        <td>
+                            <input type="file" th:field="*{icon}" accept="image/*" class="form-input" />
+                            <div th:errors="*{icon}" style="color: red"></div>
+                        </td>
+                    </tr>     
+                    <tr>
+                        <th>年齢</th>
+                        <td>
+                            <input type="number" th:field="*{age}" accept="image/*" class="form-input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td>
+                            <input type="text" th:field="*{email}" class="form-input" placeholder="example@example.com" />
+                            <div th:errors="*{email}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性別</th>
+                        <td>
+                            <select th:field="*{gender}" class="form-input" >
+                                <option value="">選択してください</option>
+                                <option value="男性">男性</option>
+                                <option value="女性">女性</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{password}">
+                            <button type="submit" class="btn btn-success">更新</button>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>パスワードの変更は<a th:href="@{/updatePassword}">こちら</a>から</td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="privacy" class="section">
+            <h3>ユーザーの新規追加</h3>
+            <form th:action="@{/user/addNewUser}" method="POST" th:object="${userForm}" enctype="multipart/form-data">
+                <table class="form-table">
+                    <tr>
+                        <th>名前</th>
+                        <td>
+                            <input type="text" th:field="*{name}" class="form-input" placeholder="Yamada Taro" />
+                            <div th:errors="*{name}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>アイコン</th>
+                        <td>
+                            <input type="file" th:field="*{icon}" accept="image/*" class="form-input" />
+                        </td>
+                    </tr>     
+                    <tr>
+                        <th>年齢</th>
+                        <td>
+                            <input type="number" th:field="*{age}" accept="image/*" class="form-input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td>
+                            <input type="text" th:field="*{email}" class="form-input" placeholder="example@example.com" />
+                            <div th:errors="*{email}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>パスワード</th>
+                        <td>
+                            <input type="text" th:field="*{password}" class="form-input" />
+                            <div th:errors="*{password}" style="color: red"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性別</th>
+                        <td>
+                            <select th:field="*{gender}" class="form-input" >
+                                <option value="">選択してください</option>
+                                <option value="男性">男性</option>
+                                <option value="女性">女性</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <button type="submit" class="btn btn-success">登録</button>
+                            <button type="reset" class="btn btn-secondary">リセット</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="notification" class="section">
+            <h3>お知らせ</h3>
+            <p>通知設定を管理できます。</p>
+        </div>
+    </div>
+
+    <script>
+        // セクションの表示切替関数
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // サブメニューの表示切替関数
+        function toggleSubMenu(element) {
+            var parentLi = element.parentElement;
+            if (parentLi.classList.contains('open')) {
+                parentLi.classList.remove('open');
+            } else {
+                parentLi.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+

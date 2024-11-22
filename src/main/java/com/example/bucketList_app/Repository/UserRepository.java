@@ -103,4 +103,10 @@ public class UserRepository {
 
         template.update(sql, param);
     }
+
+    public void updateExistEmail(User user) {
+        String sql = "UPDATE users SET name=:name,icon=:icon,age=:age,password=:password,gender=:gender,role=:role WHERE id=:id";
+        SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+        template.update(sql, param);
+    }
 }

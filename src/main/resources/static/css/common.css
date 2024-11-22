@@ -43,4 +43,13 @@
     margin: 0; /* 余白をリセット */
 }
 
+.sub-menu {
+    display: none; /* 初期状態で非表示 */
+    margin-left: 20px; /* インデントを少しつける */
+}
+
+.thin-text {
+    color: #888; /* 薄い文字色 */
+    font-weight: normal; /* 薄くするためにフォントの太さを指定 */
+}
 

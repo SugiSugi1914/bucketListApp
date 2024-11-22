@@ -22,7 +22,7 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
                                 .formLogin(login -> login
-                                                .loginPage("/toLogin")
+                                                .loginPage("/user/toLogin")
                                                 .loginProcessingUrl("/login")
                                                 .defaultSuccessUrl("/bucket/toMyBucket")
                                                 .failureUrl("/toLogin?error")

@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class UserForm {
+public class UpdateUserForm {
     private Integer id;
     @NotBlank(message="名前を入力してください")
     private String name;
@@ -12,8 +12,8 @@ public class UserForm {
     private Integer age;
     @NotBlank(message="メールアドレスの入力は必須です")
     private String email;
-    @NotBlank(message="パスワードの入力は必須です")
-    private String password;
+    // @NotBlank(message="パスワードの入力は必須です")
+    // private String password;
     private String gender;
     private String role;
 
@@ -57,13 +57,13 @@ public class UserForm {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    // public String getPassword() {
+    //     return password;
+    // }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // public void setPassword(String password) {
+    //     this.password = password;
+    // }
 
     public String getGender() {
         return gender;
@@ -81,9 +81,4 @@ public class UserForm {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "UserForm [id=" + id + ", name=" + name + ", icon=" + icon + ", age=" + age + ", email=" + email
-                + ", password=" + password + ", gender=" + gender + ", role=" + role + "]";
-    }
 }

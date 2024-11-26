@@ -1,129 +1,461 @@
-<!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <!DOCTYPE html>
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>バケット作成</title>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
-</head>
+    <link
+      rel="stylesheet"
+      href="../../static/css/common.css"
+      th:href="@{/css/common.css}"
+    />
+    <link
+      href="https://use.fontawesome.com/releases/v6.6.0/css/all.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="main">
-        <div class="header-container">
-            <div th:insert="~{nav-bar :: nav-bar}"></div>
+      <div class="header-container">
+        <div th:insert="~{nav-bar :: nav-bar}"></div>
+      </div>
+      <div class="main-container">
+        <div class="list-container">
+          <legend class="page-title">バケット作成</legend>
+          <div class="padding-container">
+            <form
+              th:action="@{/bucket/creation}"
+              method="POST"
+              enctype="multipart/form-data"
+              th:object="${bucketForm}"
+            >
+              <table class="form-table">
+                <tr>
+                  <th>タイトル</th>
+                  <td>
+                    <input
+                      type="text"
+                      th:field="*{title}"
+                      class="form-input"
+                      placeholder="タイトルを入力"
+                      required
+                    />
+                    <div th:errors="*{title}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>イメージ画像</th>
+                  <td>
+                    <input
+                      type="file"
+                      th:field="*{image}"
+                      accept="image/*"
+                      class="form-input"
+                    />
+                    <div th:errors="*{image}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #aaa; font-size: 0.9em"
+                      >イラストや画像をできるだけ設定しイメージを可視化させることをおすすめします</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th>カテゴリー</th>
+                  <td>
+                    <select
+                      th:field="*{categoryId}"
+                      class="form-input"
+                      required
+                    >
+                      <option value="">選択してください</option>
+                      <option value="1">未分類</option>
+                      <option value="2">旅行</option>
+                      <option value="3">自己研鑽</option>
+                      <option value="4">スポーツ</option>
+                      <option value="5">音楽</option>
+                      <option value="6">旅行</option>
+                      <option value="7">食事</option>
+                      <option value="8">健康・美容</option>
+                      <option value="9">ビジネス</option>
+                      <option value="10">家族・恋人</option>
+                    </select>
+                    <div th:errors="*{categoryId}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>予算</th>
+                  <td>
+                    <input
+                      type="number"
+                      th:field="*{budget}"
+                      class="form-input"
+                      placeholder="予算を入力"
+                      min="0"
+                      step="1"
+                    />
+                    <div th:errors="*{budget}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>達成までの期限</th>
+                  <td>
+                    <input
+                      type="date"
+                      th:field="*{dueDate}"
+                      class="form-input"
+                      required
+                    />
+                    <div th:errors="*{dueDate}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>優先度</th>
+                  <td>
+                    <select
+                      th:field="*{priorityId}"
+                      class="form-input"
+                      required
+                    >
+                      <option value="">選択してください</option>
+                      <option value="1">Low</option>
+                      <option value="2">Medium</option>
+                      <option value="3">High</option>
+                      <option value="4">Critical</option>
+                      <option value="5">Must</option>
+                    </select>
+                    <div th:errors="*{priorityId}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>参考URL</th>
+                  <td>
+                    <input
+                      type="url"
+                      th:field="*{url}"
+                      class="form-input"
+                      placeholder="参考URLを入力"
+                    />
+                    <div th:errors="*{url}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>メモ</th>
+                  <td>
+                    <textarea
+                      th:field="*{memo}"
+                      class="form-input"
+                      placeholder="メモを入力"
+                    ></textarea>
+                    <div th:errors="*{memo}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>作成日</th>
+                  <td>
+                    <input
+                      type="date"
+                      th:field="*{creationDate}"
+                      class="form-input"
+                      value="[[${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}]"
+                      required
+                    />
+                    <div th:errors="*{creationDate}" style="color: red"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="text-align: center">
+                    <button type="submit" class="btn btn-success">
+                      バケット作成
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                      リセット
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
         </div>
-        <div class="main-container">
-            <div class="list-container">
-                <legend class="page-title">バケット作成</legend>
-                <div class="padding-container">
-                    <form th:action="@{/bucket/creation}" method="POST" enctype="multipart/form-data" th:object="${bucketForm}">
-                        <table class="form-table">
-                            <tr>
-                                <th>タイトル</th>
-                                <td>
-                                    <input type="text" th:field="*{title}" class="form-input" placeholder="タイトルを入力" required />
-                                    <div th:errors="*{title}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>イメージ画像</th>
-                                <td>
-                                    <input type="file" th:field="*{image}" accept="image/*" class="form-input" />
-                                    <div th:errors="*{image}" style="color: red"></div>
-                                </td>
-                            </tr>     
-                            <tr>
-                                <td>
-                                    <span style="color: #aaa; font-size: 0.9em;">イラストや画像をできるだけ設定しイメージを可視化させることをおすすめします</span>
-                                </td>
-                            </tr>                       
-                            <tr>
-                                <th>カテゴリー</th>
-                                <td>
-                                    <select th:field="*{categoryId}" class="form-input" required>
-                                        <option value="">選択してください</option>
-                                        <option value="1">未分類</option>
-                                        <option value="2">旅行</option>
-                                        <option value="3">自己研鑽</option>
-                                        <option value="4">スポーツ</option>
-                                        <option value="5">音楽</option>
-                                        <option value="6">旅行</option>
-                                        <option value="7">食事</option>
-                                        <option value="8">健康・美容</option>
-                                        <option value="9">ビジネス</option>
-                                        <option value="10">家族・恋人</option>
-                                    </select>
-                                    <div th:errors="*{categoryId}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>予算</th>
-                                <td>
-                                    <input type="number" th:field="*{budget}" class="form-input" placeholder="予算を入力" min="0" step="1"/>
-                                    <div th:errors="*{budget}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>達成までの期限</th>
-                                <td>
-                                    <input type="date" th:field="*{dueDate}" class="form-input" required />
-                                    <div th:errors="*{dueDate}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優先度</th>
-                                <td>
-                                    <select th:field="*{priorityId}" class="form-input" required >
-                                        <option value="">選択してください</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Medium</option>
-                                        <option value="3">High</option>
-                                        <option value="4">Critical</option>
-                                        <option value="5">Must</option>
-                                    </select>
-                                    <div th:errors="*{priorityId}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>参考URL</th>
-                                <td>
-                                    <input type="url" th:field="*{url}" class="form-input" placeholder="参考URLを入力" />
-                                    <div th:errors="*{url}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>メモ</th>
-                                <td>
-                                    <textarea th:field="*{memo}" class="form-input" placeholder="メモを入力"></textarea>
-                                    <div th:errors="*{memo}" style="color: red"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>作成日</th>
-                                <td>
-                                    <input type="date" th:field="*{creationDate}" class="form-input" value="[[${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}]" required />
-                                    <div th:errors="*{creationDate}" style="color: red"></div>
-                                </td>
-                            </tr>                            
-                            <tr>
-                                <td colspan="2" style="text-align: center">
-                                    <button type="submit" class="btn btn-success">バケット作成</button>
-                                    <button type="reset" class="btn btn-secondary">リセット</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
     <div class="footer-container"></div>
-</body>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>バケット作成</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+      }
+
+      .nav-bar {
+        width: 250px;
+        background-color: #343a40;
+        color: white;
+        height: 100vh;
+        position: fixed;
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-bar a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .nav-bar a:hover {
+        background-color: #495057;
+      }
+
+      .main-container {
+        margin-left: 250px;
+        padding: 20px;
+        flex: 1;
+        width: calc(100% - 250px);
+      }
+
+      .form-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .page-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #343a40;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .form-control,
+      .form-select {
+        margin-bottom: 15px;
+      }
+
+      .text-danger {
+        font-size: 0.875em;
+      }
+
+      button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      button[type="submit"] {
+        background-color: #007bff;
+        color: white;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      button[type="reset"] {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      button[type="reset"]:hover {
+        background-color: #5a6268;
+      }
+
+      @media (max-width: 768px) {
+        .nav-bar {
+          width: 100%;
+          height: auto;
+          position: relative;
+          padding: 10px;
+        }
+
+        .main-container {
+          margin-left: 0;
+          width: 100%;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ナビゲーションバー -->
+    <div th:insert="~{nav-bar :: nav-bar}"></div>
+
+    <!-- メインコンテンツ -->
+    <main class="main-container">
+      <div class="form-container">
+        <legend class="page-title">バケット作成</legend>
+        <form
+          th:action="@{/bucket/creation}"
+          method="POST"
+          enctype="multipart/form-data"
+          th:object="${bucketForm}"
+        >
+          <div class="mb-3">
+            <label for="title" class="form-label">タイトル</label>
+            <input
+              type="text"
+              th:field="*{title}"
+              class="form-control"
+              placeholder="タイトルを入力"
+              required
+            />
+            <div th:errors="*{title}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">イメージ画像</label>
+            <input
+              type="file"
+              th:field="*{image}"
+              class="form-control mt-2"
+              accept="image/*"
+            />
+            <div th:errors="*{image}" class="text-danger"></div>
+            <span class="form-text text-muted"
+              >イラストや画像を設定することをおすすめします。</span
+            >
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">カテゴリー</label>
+            <select th:field="*{categoryId}" class="form-select" required>
+              <option value="">選択してください</option>
+              <option value="1">未分類</option>
+              <option value="2">旅行</option>
+              <option value="3">自己研鑽</option>
+              <option value="4">スポーツ</option>
+              <option value="5">音楽</option>
+              <option value="6">旅行</option>
+              <option value="7">食事</option>
+              <option value="8">健康・美容</option>
+              <option value="9">ビジネス</option>
+              <option value="10">家族・恋人</option>
+            </select>
+            <div th:errors="*{categoryId}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="budget" class="form-label">予算</label>
+            <input
+              type="number"
+              th:field="*{budget}"
+              class="form-control"
+              placeholder="予算を入力"
+              min="0"
+            />
+            <div th:errors="*{budget}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">達成までの期限</label>
+            <input
+              type="date"
+              th:field="*{dueDate}"
+              class="form-control"
+              required
+            />
+            <div th:errors="*{dueDate}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="creationDate" class="form-label">作成日</label>
+            <input
+              type="date"
+              id="creationDate"
+              name="creationDate"
+              th:field="*{creationDate}"
+              class="form-control"
+              th:value="${bucketForm.creationDate != null ? bucketForm.creationDate : #dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+              required
+            />
+            <div th:errors="*{creationDate}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="priority" class="form-label">優先度</label>
+            <select th:field="*{priorityId}" class="form-select" required>
+              <option value="">選択してください</option>
+              <option value="1">☆</option>
+              <option value="2">☆☆</option>
+              <option value="3">☆☆☆</option>
+              <option value="4">☆☆☆☆</option>
+              <option value="5">☆☆☆☆☆</option>
+            </select>
+            <div th:errors="*{priorityId}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="url" class="form-label">参考URL</label>
+            <input
+              type="url"
+              th:field="*{url}"
+              class="form-control"
+              placeholder="参考URLを入力"
+            />
+            <div th:errors="*{url}" class="text-danger"></div>
+          </div>
+          <div class="mb-3">
+            <label for="memo" class="form-label">メモ</label>
+            <textarea
+              th:field="*{memo}"
+              class="form-control"
+              placeholder="メモを入力"
+              rows="4"
+            ></textarea>
+            <div th:errors="*{memo}" class="text-danger"></div>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">バケット作成</button>
+            <button type="reset" class="btn btn-secondary">リセット</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // ページが読み込まれたときに実行
+      document.addEventListener("DOMContentLoaded", function () {
+          const creationDateField = document.getElementById("creationDate");
+          if (creationDateField) {
+              const today = new Date();
+              // YYYY-MM-DD形式にフォーマット
+              const formattedDate = today.toISOString().split("T")[0];
+              creationDateField.value = formattedDate; // 初期値として設定
+          }
+      });
+  </script>
+  </body>
 </html>
-
-
-
-
-

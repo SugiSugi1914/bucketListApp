@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html
   xmlns:th="http://www.thymeleaf.org"
@@ -7,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>管理者ダッシュボード</title>
-    <!-- Bootstrap CSS -->
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,7 +18,7 @@
     <div class="header-container">
       <div th:insert="~{nav-bar :: nav-bar}"></div>
     </div>
-    <!-- ナビゲーションバー -->
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/admin/dashboard}"
@@ -69,11 +70,11 @@
       </div>
     </nav>
 
-    <!-- メインコンテンツ -->
+
     <div class="container mt-4">
       <h1 class="text-center mb-4">管理者ダッシュボード</h1>
 
-      <!-- 管理アクション -->
+
       <div class="row">
         <div class="col-md-4 mb-3">
           <a class="btn btn-primary w-100" th:href="@{/admin/toRegister}"
@@ -93,8 +94,141 @@
       </div>
     </div>
 
-    <!-- フッター -->
+
     <footer class="bg-dark text-white text-center py-3 mt-4">
+      &copy; 2024 バケットリストアプリ 管理者ダッシュボード
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理者ダッシュボード</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      .dashboard-title {
+        border-bottom: 2px solid #343a40; /* 下線を追加 */
+        padding-bottom: 10px; /* 下線と文字の間に余白 */
+      }
+
+      .main-container {
+        flex: 1;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .footer {
+        padding: 10px 0;
+        text-align: center;
+        background-color: #343a40;
+        color: white;
+      }
+
+      .btn {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">管理者ダッシュボード</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/admin/dashboard}">ホーム</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toRegister}">管理者追加</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toReport}">報告されたバケット</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toDeleteReportUser}"
+                >報告されたユーザー</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/timeLine/toTimeLine}">タイムライン</a>
+            </li>
+          </ul>
+          <form
+            th:action="@{/logout}"
+            method="post"
+            class="ms-auto"
+            style="display: inline"
+          >
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <button
+              type="submit"
+              class="btn btn-dark"
+              onclick="return confirm('本当にログアウトしますか？')"
+            >
+              ログアウト
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <div class="main-container">
+      <h1 class="mb-4 text-center dashboard-title">操作する内容を以下から選んでください</h1>
+      <div class="row text-center">
+        <div class="col-md-6 mb-3">
+          <a class="btn btn-primary w-100" th:href="@{/admin/toRegister}">管理者追加</a>
+        </div>
+        <div class="col-md-6 mb-3">
+          <a class="btn btn-warning w-100" th:href="@{/admin/toReport}">報告されたバケット</a>
+        </div>
+        <div class="col-md-6 mb-3">
+          <a class="btn btn-danger w-100" th:href="@{/admin/toDeleteReportUser}">報告されたユーザー</a>
+        </div>
+        <div class="col-md-6 mb-3">
+          <a class="btn btn-success w-100" th:href="@{/timeLine/toTimeLine}">タイムライン</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
       &copy; 2024 バケットリストアプリ 管理者ダッシュボード
     </footer>
 

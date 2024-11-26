@@ -12,38 +12,45 @@
   </head>
   <body>
     <div th:fragment="nav-bar" class="nav-bar">
-
-      <div class="logo">
-        <a href="top.html" th:href="@{/top}">logo</a>
-      </div>
+        <a href="top.html" th:href="@{/bucket/toMyBucket}">
+          <img
+            th:src="@{/img/logo/images.jpg}"
+            alt="logo"
+            style="width: 50px; height: 50px"
+            class="rounded-circle"
+          />
+        </a>
       <div>
-        <ul>
+        <ul style="list-style: none" class="mt-5">
           <span sec:authorize="hasAuthority('Admin')">
-            <li>
-              <a id="admin-info" th:href="@{/admin/dashboard}" href="./admin/dashboard.html"
+            <li class="mb-2">
+              <a
+                id="admin-info"
+                th:href="@{/admin/dashboard}"
+                href="./admin/dashboard.html"
                 ><i class="fa fa-crown"></i>管理者機能&nbsp;
               </a>
             </li>
           </span>
           <span sec:authorize="authenticated">
-            <li>
+            <li class="mb-2">
               <a id="register" th:href="@{/timeLine/toTimeLine}" href=""
                 ><i class="fa fa-home"></i>タイムライン&nbsp;</a
               >
             </li>
-            <li>
+            <li class="mb-2">
               <a id="register" th:href="@{/bucket/toMyBucket}" href=""
                 ><i class="fa fa-check-square"></i> Myバケット&nbsp;</a
               >
             </li>
-            <li>
+            <li class="mb-2">
               <a id="register" th:href="@{/user/toOthers}" href="">
                 <i class="fa fa-cog"></i> 設定&nbsp;
               </a>
             </li>
           </span>
           <span sec:authorize="isAnonymous()">
-            <li>
+            <li class="mb-2">
               <a
                 id="register"
                 th:href="@{/user/toRegister}"
@@ -53,7 +60,7 @@
             </li>
           </span>
           <span sec:authorize="isAnonymous()">
-            <li>
+            <li class="mb-2">
               <a id="login" th:href="@{/user/toLogin}" href="./user/login.html"
                 ><i class="fa fa-sign-in"></i>ログイン&nbsp;
               </a>
@@ -78,7 +85,6 @@
           </span>
         </ul>
       </div>
-
     </div>
   </body>
 </html>

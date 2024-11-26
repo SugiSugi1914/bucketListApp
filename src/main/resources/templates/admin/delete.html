@@ -14,12 +14,10 @@
     />
   </head>
   <body>
-    <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <!-- ナビゲーションバー -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/admin/dashboard}"
-          >管理者ダッシュボード</a
-        >
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">管理者ダッシュボード</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -37,12 +35,18 @@
               <a class="nav-link" th:href="@{/admin/dashboard}">ホーム</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/admin/toRegister}">管理者追加</a>
+              <a class="nav-link active" th:href="@{/admin/toRegister}">管理者追加</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/admin/toReport}"
-                >報告されたバケット</a
+              <a class="nav-link" th:href="@{/admin/toReport}">報告されたバケット</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/admin/toDeleteReportUser}"
+                >報告されたユーザー</a
               >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/timeLine/toTimeLine}">タイムライン</a>
             </li>
           </ul>
           <form
@@ -54,7 +58,7 @@
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <button
               type="submit"
-              class="bg-body-secondary"
+              class="btn btn-dark"
               onclick="return confirm('本当にログアウトしますか？')"
             >
               ログアウト
